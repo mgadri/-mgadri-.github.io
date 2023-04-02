@@ -1,1 +1,58 @@
+<html>
+<head>
+  <title>My first map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+  <style>
+    #map{ width: 600px; height: 400px; }
+  </style>
+</head>
+
+<body>
+
+  <div id="map"></div> 
+
+<script src="PointsLayer-geojson.js" type="text/javascript"></script>
+  
+<script>
+
+  // initialize the map
+  var map = L.map('map').setView([40, -89], 5);
+	  
+  //var marker = L.marker([40.1, -89.1]).addTo(map);
+  
+   //var circle = L.circle([40.1, -89.1], {
+	    //color: 'blue',
+	    //fillColor: '#e4e3db',
+	    //fillOpacity: 0.25,
+	    //radius: 250
+    //}).addTo(map);
+   
+     //var polygonPoints = [
+	    //[40, -89.1],
+            //[40.1, -89.1],
+            //[40.1, -89.15],
+            //[40, -89.15]];
+
+    //var poly = L.polygon(polygonPoints).addTo(map);
+
+  // load a tile layer
+L.tileLayer('https://api.mapbox.com/styles/v1/mandela/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            //KVS style ID
+            id: 'ck8thyk0x0epr1ipfe8zuzaum',
+            //KVS access Token
+            accessToken: 'pk.eyJ1IjoibWdhZHJpMiIsImEiOiJjbGZ5cTM0ZHUwZGU5M2V0YWs4MTFwNXE5In0.HS6QAF-98ofxgNHZBoYuJw' 
+        }).addTo(map);
+  
+L.geoJSON(PointsLayer).addTo(map);
+
+  </script>
+</body>
+</html>
 
