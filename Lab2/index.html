@@ -46,17 +46,17 @@ width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
       
-      function getColor(IL-Ed-Lab2_NormBach) {
-      return IL-Ed-Lab2_NormBach > 35.19  ? '#BD0026' :
-            IL-Ed-Lab2_NormBach> 22.91  ? '#E31A1C' :
-            IL-Ed-Lab2_NormBach > 12.87  ? '#FC4E2A' :
-            IL-Ed-Lab2_NormBach > 0  ? '#FD8D3C' :
+      function getColor("IL-Ed-Lab2_NormBach") {
+      return "IL-Ed-Lab2_NormBach" > 35.19  ? '#BD0026' :
+            "IL-Ed-Lab2_NormBach"> 22.91  ? '#E31A1C' :
+            "IL-Ed-Lab2_NormBach" > 12.87  ? '#FC4E2A' :
+            "IL-Ed-Lab2_NormBach" > 0  ? '#FD8D3C' :
                          '#FFEDA0';
 }
 
      function style(feature) {
      return {
-        fillColor: getColor(feature.properties.IL-Ed-Lab2_NormBach), //color by density attribute
+        fillColor: getColor(feature.properties."IL-Ed-Lab2_NormBach"), //color by density attribute
         weight: 0.5, //line weight
         opacity: 1, //line opacity
         color: 'black', //line color
