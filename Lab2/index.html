@@ -63,10 +63,40 @@ width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;
         fillOpacity: 0.7 //shape file
     };
 }
+
+    function highlightFeature(e) {
+		const layer = e.target;
+
+		layer.setStyle({
+			weight: 5,
+			color: 'white',
+			fillOpacity: 0.9
+   });
+
+		layer.bringToFront();
+
+}
 	
-    const IllinoisGeoJSON = L.geoJson(IllioisGJSON,{
-              style,
-	      }).addTo(map);
+	function resetHighlight(e) {
+		geojson.resetStyle(e.target);
+}
+
+	
+	function zoomToFeature(e) {
+		map.fitBounds(e.target.getBounds());
+}
+
+	function onEachFeature(feature, layer) {
+		layer.on({
+			mouseover: highlightFeature,
+			mouseout: resetHighlight,
+   });	
+	
+}
+    const geojson = L.geoJson(IllinoisGJSON, {
+		style,
+		onEachFeature
+	}).addTo(map);
   
     var legend = L.control({position: 'bottomright'});
     legend.onAdd = function (map) {
