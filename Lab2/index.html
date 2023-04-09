@@ -121,16 +121,7 @@ width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;
 legend.addTo(map);
 
 
-if (feature.properties) {
-                    layer.bindPopup("<b>school: </b>" + feature.properties.name);
-                    }
-                    }
-    
-L.geoJSON(university, {style,
-		onEachFeature
-	}).addTo(map);
-
-// L.geoJSON(university).addTo(map);
+L.geoJSON(university).addTo(map);
  
 </script>
 </body>
