@@ -24,24 +24,32 @@ var map = L.map('map').setView([40.1, -88.2], 6);
     }).addTo(map);
 var geojsonLayer = L.geoJSON(null, {
 			onEachFeature: function(feature, layer) {
-				// Optional: add popups or other interactions to each feature
 			}
 		}).addTo(map);	
 $.getJSON("https://github.com/mgadri/mgadri.github.io/blob/main/Lab4HeatMap/secondEd.geojson", function(data) { geojsonLayer.addData(data);
 
-var heatMap = L.heatLayer(coordinates, {
-    radius: 100,
-    blur: 10, 
-    opacity: 1,
-    maxZoom: 17,
-    max: 4.0,
-    gradient: {
-	    0.0: 'green',
-	    0.5: 'yellow',
-	    1: 'red'
-    }
-    }).addTo(map)
-    });
+var heatData = [];
+	geojsonLayer.eachLayer(function(layer) {
+		var latlng = layer.getLatLng();
+		var value = layer.value;
+		heatData.push([latlng.lat, latlng.lng, value]);
+	});
+
+													       
+var heatLayer = L.heatLayer(heatData, {
+				radius: 100,
+				blur: 10,
+				opacity: 1,
+				maxZoom: 17,
+				max: 4.0,
+				
+				gradient: {
+					0.0: 'green',
+					0.5: 'yellow',
+					1.0: 'red'}
+        
+		}).addTo(map);
+	});
   </script>
 </body>
 </html>
