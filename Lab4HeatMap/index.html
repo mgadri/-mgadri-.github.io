@@ -27,7 +27,7 @@ var geojsonLayer = L.geoJSON(null, {
 			onEachFeature: function(feature, layer) {
 			}
 		}).addTo(map);	
-$.getJSON("https://mgadri.github.io/Lab4HeatMap/secondEd.geojson", function(data) { geojsonLayer.addData(data);
+$.getJSON("https://mgadri.github.io/Lab4HeatMap/secondEd.geojson", function(data) //{ geojsonLayer.addData(data);
     
 var heatData = [];
 	geojsonLayer.eachLayer(function(layer) {
