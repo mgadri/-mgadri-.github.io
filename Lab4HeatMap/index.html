@@ -23,11 +23,11 @@
   
 <script>
 
- var map = L.map('map').setView([40.1, -88.2], 13);
+ var map = L.map('map').setView([40.1, -88.2], 16);
 
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',subdomains: 'abcd',
-	maxZoom: 11
+	maxZoom: 13
 }).addTo(map);
 
 var geojsonLayer = L.geoJSON(null, {
@@ -36,7 +36,7 @@ var geojsonLayer = L.geoJSON(null, {
 			}
 		}).addTo(map);
 
-$.getJSON("https://gist.githubusercontent.com/raechelportelli/91c6caf9af3daf85a7a2fe1eec079a10/raw/28c42649557d8e286c54bc9ef97af4c17bafdd96/secondEd.geojson",
+$.getJSON("https://github.com/mgadri/mgadri.github.io/blob/main/Lab4HeatMap/secondEd.geojson",
  function(data) {
  
 geojsonLayer.addData(data);	
