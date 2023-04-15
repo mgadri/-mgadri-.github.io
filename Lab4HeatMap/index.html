@@ -30,14 +30,7 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_M
 }).addTo(map);
 	
 var geojsonLayer = L.geoJSON(null, {
-			onEachFeature: function(feature, layer) {
-				// Optional: add popups or other interactions to each feature
-			}
-		}).addTo(map);
-
-$.getJSON("https://github.com/mgadri/mgadri.github.io/blob/main/Lab4HeatMap/secondEd.geojson",
- function(data) {
- 
+	function(data) {
 geojsonLayer.addData(data);
 
   </script>
