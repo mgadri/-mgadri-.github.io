@@ -2,13 +2,9 @@
 <head>
   <title>How to create an interactive heatmap with Leaflet.js</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-        crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-        crossorigin=""></script>
-  	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+	
         <script src="leaflet-heat.js"></script>
   <style>
     #map{ width: 600px; height: 400px; }
@@ -46,19 +42,19 @@ function eachLayer(layer){
 map.on('click', eachLayer);
 	
 		
-var heatLayer = L.heatLayer(heatData, {
-				radius: 100,
-				blur: 10,
-				opacity: 1,
-				maxZoom: 17,
-				max: 4.0,
+L.heatLayer(heatData, {
+			radius: 100,
+			blur: 10,
+			opacity: 1,
+			maxZoom: 17,
+			max: 4.0,
 				
-				gradient: {
-					0.0: 'green',
-					0.5: 'yellow',
-					1.0: 'red'}
+			gradient: {
+				0.0: 'green',
+				0.5: 'yellow',
+				1.0: 'red'}
         
-			}).addTo(map);
+		}).addTo(map);
 });
 	
   </script>
