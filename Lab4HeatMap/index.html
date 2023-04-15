@@ -22,10 +22,10 @@
 
   var map = L.map('map').setView([40.1, -88.2], 6);
 
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',subdomains: 'abcd',
-	maxZoom: 19
-}).addTo(map);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
 
  var geojsonLayer = L.geoJSON(university, {
 			 onEachFeature: function(feature, layer) {
@@ -39,6 +39,8 @@
 		 heatData.push([latlng.lat, latlng.lng, value]);
 });
 	
+  </script>
+</body>
 var heatLayer = L.heatLayer(heatData, {
 				radius: 100,
 				blur: 10,
@@ -53,6 +55,4 @@ var heatLayer = L.heatLayer(heatData, {
         
 			}).addTo(map);
 		});
-  </script>
-</body>
 </html>
