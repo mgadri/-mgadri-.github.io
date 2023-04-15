@@ -34,12 +34,18 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var geojsonLayer = L.geoJSON(university).addTo(map);
 	
 var heatData = [];
-	geojsonLayer.eachLayer(function(layer) {
-		var latlng = layer.getLatLng();
-		var value = layer.value;
-		heatData.push([latlng.lat, latlng.lng, value]);
-	});
+
+var heat = L.heatLayer(heatData, {
+	maxZoom: 10
+})
+.addTo(map);
+
+function eachLayer(layer){
+		heat.addLatLng(layer.latlng);
+	}
+map.on('click', eachLayer);
 	
+		
 var heatLayer = L.heatLayer(heatData, {
 				radius: 100,
 				blur: 10,
@@ -53,7 +59,7 @@ var heatLayer = L.heatLayer(heatData, {
 					1.0: 'red'}
         
 			}).addTo(map);
-});
+//});
 	
   </script>
 </body>
