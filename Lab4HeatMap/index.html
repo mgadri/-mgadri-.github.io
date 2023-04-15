@@ -19,7 +19,7 @@
   <div id="map"></div> 
 
 	
-<script src="secondEd.geojson" type="text/javascript"></script>
+<script src="secondEd.geojson" type="FeatureCollection"></script>
   
 <script>
 
@@ -30,9 +30,8 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_M
 	maxZoom: 13
 }).addTo(map);
 
-var geojsonLayer = L.geoJSON(university).addTo(map);
+var geojsonLayer = L.geoJSON(NULL).addTo(map);
 	
-
 var heatData = [];
 	geojsonLayer.eachLayer(function(layer) {
 		var latlng = layer.getLatLng();
