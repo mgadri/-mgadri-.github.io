@@ -29,6 +29,8 @@ var geojsonLayer = L.geoJSON(null, {
 		}).addTo(map);	
 $.getJSON("https://mgadri.github.io/Lab4HeatMap/secondEd.geojson", function(data) { geojsonLayer.addData(data);
     coords = data.features.map(feat => feat.geometry.coordinates.slice().reverse())
+										   
+//Question 4 section										   
 var heatMap = L.heatLayer(coords, {
     minOpacity: 0.9,  
     maxZoom: 19,  
@@ -39,9 +41,10 @@ var heatMap = L.heatLayer(coords, {
     0.5: 'green',
     0.75: 'yellow',
     1: 'red'
-    }
-   // }).addTo(map)
- });										   
+    }	
+	
+//Question 3 section
+	
 //var heatData = [];
 	//geojsonLayer.eachLayer(function(layer) {
 		//var latlng = layer.getLatLng();
@@ -62,8 +65,8 @@ var heatMap = L.heatLayer(coords, {
 					//0.5: 'yellow',
 					//1.0: 'red'}
         
-		//}).addTo(map);
-	//});
+	}).addTo(map);
+});
 
   </script>
 </body>
