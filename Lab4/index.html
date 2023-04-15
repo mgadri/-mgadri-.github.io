@@ -45,20 +45,16 @@ width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
-   
-var popup = L.popup();
-
-function onMapClick(e) {
+      
+  var popup = L.popup();
+  function onMapClick(e) {
       popup
           .setLatLng(e.latlng)
           .setContent("You clicked the map at " + e.latlng.toString())
           .openOn(map);
 }
-
-map.on('click', onMapClick);
-
-};
-   
+map.on('click', onMapClick);   
+      
       function getColor(NormBach) {
       return NormBach > 35.19  ? '#BD0026' :
             NormBach> 22.91  ? '#E31A1C' :
@@ -107,7 +103,7 @@ map.on('click', onMapClick);
 	//if (feature.properties) {
                     //layer.bindPopup("<b>county: </b>" + feature.properties.CountyName);
                     //}
-}
+    }
     
     const geojson = L.geoJson(IllioisGJSON, {
 		style,
