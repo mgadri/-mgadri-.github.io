@@ -44,7 +44,9 @@ width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
-      
+   
+   marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+   
       function getColor(NormBach) {
       return NormBach > 35.19  ? '#BD0026' :
             NormBach> 22.91  ? '#E31A1C' :
