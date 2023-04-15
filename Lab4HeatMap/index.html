@@ -28,13 +28,9 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_M
 	maxZoom: 13
 }).addTo(map);
 
-var geojsonLayer = L.geoJSON(null, {
-			onEachFeature: function(feature, layer) {
-			}
-		}).addTo(map);
-
-$.getJSON("secondEd.geojson", function(data) {geojsonLayer.addData(data);
-	
+$.getJSON("secondEd.geojson",function(data){
+L.geoJson(data).addTo(map);
+});
   </script>
 </body>
 </html>
