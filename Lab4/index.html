@@ -64,7 +64,7 @@ map.on('click', onMapClick);
       this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
       this.update();
       return this._div;
- };
+};
  
   info.update = function (edu) {
 	 const contents = edu ? `<b>${edu.EdNorm} %</b><br />${edu.CountyName}` : 'Hover over a county';
