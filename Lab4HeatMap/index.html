@@ -27,43 +27,28 @@ var geojsonLayer = L.geoJSON(null, {
 			onEachFeature: function(feature, layer) {
 			}
 		}).addTo(map);	
-$.getJSON("https://mgadri.github.io/Lab4HeatMap/secondEd.geojson", function(data) {
-    coords = data.features.map(feat => feat.geometry.coordinates.slice().reverse())
-										   
-//Question 4 section										   
-var heatMap = L.heatLayer(coords, {
-    minOpacity: 0.9,  
-    maxZoom: 19,  
-    max: 1.0,  
-    radius: 15,  
-    blur: 10,  
-    gradient: {
-    0.5: 'green',
-    0.75: 'yellow',
-    1: 'red'
-    }	
-	
-//Question 3 section
-	
-//var heatData = [];
-	//geojsonLayer.eachLayer(function(layer) {
-		//var latlng = layer.getLatLng();
-		//var value = layer.value;
-		//heatData.push([latlng.lat, latlng.lng, value]);
-	//});
+$.getJSON("https://mgadri.github.io/Lab4HeatMap/secondEd.geojson", function(data) 
+	  //{ geojsonLayer.addData(data);
+    
+var heatData = [];
+	geojsonLayer.eachLayer(function(layer) {
+		var latlng = layer.getLatLng();
+		var value = layer.value;
+		heatData.push([latlng.lat, latlng.lng, value]);
+	});
 
 													       
-//var heatLayer = L.heatLayer(heatData, {
-				//radius: 100,
-				//blur: 10,
-				//opacity: 1,
-				//maxZoom: 17,
-				//max: 4.0,
+var heatLayer = L.heatLayer(heatData, {
+				radius: 100,
+				blur: 10,
+				opacity: 1,
+				maxZoom: 17,
+				max: 4.0,
 				
-				//gradient: {
-					//0.0: 'green',
-					//0.5: 'yellow',
-					//1.0: 'red'}
+				gradient: {
+					0.0: 'green',
+					0.5: 'yellow',
+					1.0: 'red'}
         
 	}).addTo(map);
 });
