@@ -31,6 +31,14 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_M
 }).addTo(map);
 
 var geojsonLayer = L.geoJSON(university).addTo(map);
+	
+
+var heatData = [];
+	geojsonLayer.eachLayer(function(layer) {
+		var latlng = layer.getLatLng();
+		var value = layer.value;
+		heatData.push([latlng.lat, latlng.lng, value]);
+        });
 
   </script>
 </body>
