@@ -15,8 +15,7 @@ html>
 <body>
 
   <div id="map"></div> 
-//<script src="secondEd.js" type="text/javascript"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="secondEd.js" type="text/javascript"></script>
 <script src="leaflet-heat.js"></script>
   
 <script>
@@ -28,17 +27,11 @@ html>
 	maxZoom: 19
 }).addTo(map);
 
- var geojsonLayer = L.geoJSON(null, {
+ var geojsonLayer = L.geoJSON(university, {
 			 onEachFeature: function(feature, layer) {
 				 // Optional: add popups or other interactions to each feature
 			 }
-		 }).addTo(map);
-
- $.getJSON("https://gist.githubusercontent.com/raechelportelli/91c6caf9af3daf85a7a2fe1eec079a10/raw/28c42649557d8e286c54bc9ef97af4c17bafdd96/secondEd.geojson",
-  function(data) {
- 
-geojsonLayer.addData(data);
-	
+		 }).addTo(map);	
 //L.geoJSON(university).addTo(map);
 
   </script>
