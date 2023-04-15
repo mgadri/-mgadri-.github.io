@@ -20,7 +20,7 @@
 	
 <script>
 
- var map = L.map('map').setView([40.1, -88.2], 6);
+var map = L.map("map",{doubleClickZoom:false}).setView([40.1, -88.2], 6);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -29,20 +29,18 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	
 var geojsonLayer = L.geoJSON(university).addTo(map);
 	
-var heatData = [];
+var points=[];
 
-var heat = L.heatLayer(heatData, {
-	maxZoom: 10
-})
-.addTo(map);
+var heat = L.heatLayer(points,{maxZoom:10}).addTo(map);
 
-function eachLayer(layer){
-		heat.addLatLng(layer.latlng);
-	}
-map.on('click', eachLayer);
+Function addpoint(e){
+heat.addLatLng(e.latlng);
+}
+	
+map.on('click',addpoint);
 	
 		
-L.heatLayer(heatData, {
+var heatLayer = L.heatLayer(points, {
 			radius: 100,
 			blur: 10,
 			opacity: 1,
