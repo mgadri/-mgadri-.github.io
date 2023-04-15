@@ -27,11 +27,16 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
- var geojsonLayer = L.geoJSON(university, {
+  var geojsonLayer = L.geoJSON(null, {
 			 onEachFeature: function(feature, layer) {
 				 // Optional: add popups or other interactions to each feature
-}
-}).addTo(map);	
+			 }
+		 }).addTo(map);
+
+ $.getJSON("https://gist.githubusercontent.com/raechelportelli/91c6caf9af3daf85a7a2fe1eec079a10/raw/28c42649557d8e286c54bc9ef97af4c17bafdd96/secondEd.geojson",
+  function(data) {
+ 
+geojsonLayer.addData(data);
  var heatData = [];
 	 geojsonLayer.eachLayer(function(layer) {
 		 var latlng = layer.getLatLng();
@@ -39,20 +44,20 @@
 		 heatData.push([latlng.lat, latlng.lng, value]);
 });
 	
+ var heatLayer = L.heatLayer(heatData, {
+				 radius: 100,
+				 blur: 10,
+				 opacity: 1,
+				 maxZoom: 17,
+				 max: 4.0,
+				
+				 gradient: {
+					 0.0: 'green',
+					 0.5: 'yellow',
+					 1.0: 'red'}
+        
+			 }).addTo(map);
+		 });	
   </script>
 </body>
-var heatLayer = L.heatLayer(heatData, {
-				radius: 100,
-				blur: 10,
-				opacity: 1,
-				maxZoom: 17,
-				max: 4.0,
-				
-				gradient: {
-					0.0: 'green',
-					0.5: 'yellow',
-					1.0: 'red'}
-        
-			}).addTo(map);
-		});
 </html>
