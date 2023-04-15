@@ -22,11 +22,14 @@ var map = L.map('map').setView([40.1, -88.2], 6);
 	    attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',subdomains: 'abcd',
 	    maxZoom: 13
     }).addTo(map);
-	
-$.getJSON("https://github.com/mgadri/mgadri.github.io/blob/main/Lab4HeatMap/secondEd.geojson", function(data) {
-    coords = data.features.map(feat => feat.geometry.coordinates.slice().reverse())
+var geojsonLayer = L.geoJSON(null, {
+			onEachFeature: function(feature, layer) {
+				// Optional: add popups or other interactions to each feature
+			}
+		}).addTo(map);	
+$.getJSON("https://github.com/mgadri/mgadri.github.io/blob/main/Lab4HeatMap/secondEd.geojson", function(data) { geojsonLayer.addData(data);
 
-var heatMap = L.heatLayer(coords, {
+var heatMap = L.heatLayer(coordinates, {
     radius: 100,
     blur: 10, 
     opacity: 1,
