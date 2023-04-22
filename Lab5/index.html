@@ -38,7 +38,7 @@
         var xAxis = d3.axisBottom(x);
 
         svg.append("g")
-           //.attr("transform", "translate(0," + height + ")")
+           .attr("transform", "translate(0," + height + ")")
            .call(xAxis);
 
         var yAxis = d3.axisLeft(y);
