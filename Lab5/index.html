@@ -31,7 +31,7 @@
                   .domain(d3.extent(data, function(d) { return d.Severity; })).nice();
 
         var y = d3.scaleLinear()
-                  .range([height, 0])
+                  .range([0,height])
                   .domain(d3.extent(data, function(d) { return d.Accidents; })).nice();
 
         // Step 5: Add the x and y axes
