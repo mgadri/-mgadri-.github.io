@@ -32,7 +32,7 @@
 
         var y = d3.scaleLinear()
                   .range([height, 0])
-                  .domain(d3.extent(data, function(d) { return d.PerCapitaAcc; })).nice();
+                  .domain(d3.extent(data, function(d) { return d.Accidents; })).nice();
 
         // Step 5: Add the x and y axes
         var xAxis = d3.axisBottom(x);
@@ -68,7 +68,7 @@
             .append("path")
             .attr("d", d3.symbol().type(d3.symbolTriangle))
             .attr("transform", function(d) {
-                return "translate(" + x(d.Severity) + "," + y(d.PerCapitaAcc) + ")";
+                return "translate(" + x(d.Severity) + "," + y(d.Accidents) + ")";
             })
             //.attr("r", 2)
             .style("fill", "#CC0000");
