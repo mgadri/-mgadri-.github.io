@@ -391,23 +391,23 @@ function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
 	};
 	var trace3 = {
 		x: x,
+		showlegend: true,
 		name: 'x density',
 		marker: {color: 'green'},
 		yaxis: 'y2',
 		type: 'histogram'
-		showlegend: true,
 	};
 	var trace4 = {
 		y: y,
+		showlegend: true,
 		name: 'y density',
 		marker: {color: 'red'},
 		xaxis: 'x2',
 		type: 'histogram'
-		showlegend: true,
 	};
 	var data = [trace1, trace2, trace3, trace4];
 	var layout = {
-		#showlegend: false,
+		showlegend: false,
 		autosize: false,
 		width: chartDiv.clientWidth,
 		height: chartDiv.clientHeight,
