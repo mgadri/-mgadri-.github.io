@@ -120,7 +120,7 @@ function entryPoint() {
 	mapN.colors = COLOR_CLASS[COLOR_HUE + "_" + NUMBER_OF_CLASS]
 	draw_choroplethMap(mapN, trace);
 	
-	draw_2dDensityPlots();
+	draw_2dDensityPlots(trace);
 }
 
 
@@ -237,7 +237,7 @@ function trace_selected(mDIV) {
 	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
 	draw_choroplethMap(mapN, trace);
 	
-	draw_2dDensityPlots();
+	draw_2dDensityPlots(trace);
 }
 
 
