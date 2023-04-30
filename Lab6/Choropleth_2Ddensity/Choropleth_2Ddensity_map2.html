@@ -360,8 +360,8 @@ function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
 	
 	var chartDiv = document.getElementById(cDIV).getElementsByClassName("chart")[0];
 	
-	var x = [];
-	var y = [];
+	var x = [0];
+	var y = [0];
 	app.assembledGeoJSON.features.forEach(function(feature, i) {
 		if (feature.properties[t1] != NO_DATA) x.push(feature.properties[t1]);
 		if (feature.properties[t2] != NO_DATA) y.push(feature.properties[t2]);
