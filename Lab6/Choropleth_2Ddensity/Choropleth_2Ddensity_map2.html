@@ -120,7 +120,7 @@ function entryPoint() {
 	mapN.colors = COLOR_CLASS[COLOR_HUE + "_" + NUMBER_OF_CLASS]
 	draw_choroplethMap(mapN, trace);
 	
-	draw_2dDensityPlots();
+	draw_SPCControlCharts();
 }
 
 
@@ -226,7 +226,7 @@ function draw_baseMap(mDIV, variables, trace) {
  * mDIV: id of <div> tag where to draw the map
  * update mapN.intervals by selected trace
  * call the draw_choroplethMap function
- * call the draw_2dDensityPlots function
+ * call the draw_SPCControlCharts function
  */
 function trace_selected(mDIV) {
 	
@@ -237,7 +237,7 @@ function trace_selected(mDIV) {
 	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
 	draw_choroplethMap(mapN, trace);
 	
-	draw_2dDensityPlots();
+	draw_SPCControlCharts();
 }
 
 
@@ -350,7 +350,7 @@ function draw_choroplethMap(mapN, item) {
  * map2: <div> id of map2
  * cDIV: <div> id of chart
  */
-function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
+function draw_SPCControlCharts(map1="map1", map2="map2", cDIV="chart") {
 
 	var e = document.getElementById(map1).getElementsByClassName("traceSelect")[0];
 	var t1 = e.options[e.selectedIndex].value;
@@ -408,7 +408,7 @@ function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
 			width: 2
 	};
 		
-	var data = [trace1,trace2,trace3]
+	var data = [trace1, trace2, trace3]
 	var layout = {
 		title: 'Basic SPC Chart',
 		showlegend: true
