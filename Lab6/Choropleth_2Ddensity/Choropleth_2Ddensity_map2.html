@@ -367,7 +367,7 @@ function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
 		if (feature.properties[t2] != NO_DATA) y.push(feature.properties[t2]);
 	});
 
-	var Viol = {
+	var trace1 = {
 		type: 'scatter',
 		x: x,
 		y: y,
@@ -380,10 +380,9 @@ function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
 			opacity: 0.5,
 			size: 12,
 			symbol: 'circle-open'
-		}
-	}
-	
-	var CL = {
+	};
+		
+	var trace2 = {
 		type: 'scatter',
 		x: x,
 		y: y,
@@ -394,10 +393,10 @@ function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
 			color: 'red',
 			width: 2,
 			dash: 'dash'
-		}
-	}
 	
-	var Centre = {
+	};
+	
+	var trace3= {
 		type: 'scatter',
 		x: x,
 		y: y,
@@ -407,10 +406,9 @@ function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
 		line: {
 			color: 'grey',
 			width: 2
-		}
-	}
-	
-	var data = [Viol,CL,Centre]
+	};
+		
+	var data = [trace1,trace2,trace3]
 	var layout = {
 		title: 'Basic SPC Chart',
 		showlegend: true
@@ -421,7 +419,7 @@ function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
 			range: [-10,10],
 			zeroline: false
 		}
-	}
+	};
 	
 	Plotly.newPlot('chartDiv', data,layout);
 
