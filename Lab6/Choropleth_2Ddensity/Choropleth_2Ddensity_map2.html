@@ -41,9 +41,9 @@
 // define global variables
 var TRACE1 = "% Hispanic";
 var TRACE2 = "% Black";
-var NUMBER_OF_CLASS = 7;                                  // range: 5 ~ 9
-var CLASSIFICATION_METHOD = "Jenks"                       // Equal, Quantile or Jenks
-var COLOR_HUE = "Blue";                                   // Red, Green or Blue
+var NUMBER_OF_CLASS = 8;                                    // range: 5 ~ 9
+var CLASSIFICATION_METHOD = "Jenks"                        // Equal, Quantile or Jenks
+var COLOR_HUE = "Blue";                            // Red, Green or Blue
 var NO_DATA = -9999;
 var COLOR_CLASS = {
 	"Red_5"     : ["#fee5d9", "#fcae91", "#fb6a4a", "#de2d26", "#a50f15"],
@@ -120,7 +120,7 @@ function entryPoint() {
 	mapN.colors = COLOR_CLASS[COLOR_HUE + "_" + NUMBER_OF_CLASS]
 	draw_choroplethMap(mapN, trace);
 	
-	draw_SPCControlCharts();
+	draw_2dDensityPlots();
 }
 
 
@@ -170,8 +170,8 @@ function classification(method, nClass, item) {
 	serie.setSerie(values);
 	var intervals = [];
 	if (method == 'Equal')      intervals = serie.getClassEqInterval(nClass);
-	if (method == 'Quantile')   intervals = serie.getClassQuantile(nClass);
 	if (method == 'Jenks')      intervals = serie.getClassJenks(nClass);
+	if (method == 'Quantile')   intervals = serie.getClassQuantile(nClass);
 	
 	return intervals;
 }
@@ -226,7 +226,7 @@ function draw_baseMap(mDIV, variables, trace) {
  * mDIV: id of <div> tag where to draw the map
  * update mapN.intervals by selected trace
  * call the draw_choroplethMap function
- * call the draw_SPCControlCharts function
+ * call the draw_2dDensityPlots function
  */
 function trace_selected(mDIV) {
 	
@@ -237,7 +237,7 @@ function trace_selected(mDIV) {
 	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
 	draw_choroplethMap(mapN, trace);
 	
-	draw_SPCControlCharts();
+	draw_2dDensityPlots();
 }
 
 
@@ -350,7 +350,7 @@ function draw_choroplethMap(mapN, item) {
  * map2: <div> id of map2
  * cDIV: <div> id of chart
  */
-function draw_SPCControlCharts(map1="map1", map2="map2", cDIV="chart") {
+function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
 
 	var e = document.getElementById(map1).getElementsByClassName("traceSelect")[0];
 	var t1 = e.options[e.selectedIndex].value;
@@ -366,63 +366,77 @@ function draw_SPCControlCharts(map1="map1", map2="map2", cDIV="chart") {
 		if (feature.properties[t1] != NO_DATA) x.push(feature.properties[t1]);
 		if (feature.properties[t2] != NO_DATA) y.push(feature.properties[t2]);
 	});
-
+	
 	var trace1 = {
-		type: 'scatter',
 		x: x,
 		y: y,
 		mode: 'markers',
-		name: 'Violation',
-		showlegend: true,
+		name: 'points',
 		marker: {
-			color: 'rgb(255,65,54)',
-			line: {width: 3},
-			opacity: 0.5,
-			size: 12,
-			symbol: 'circle-open'
+			color: 'rgb(102,0,0)',
+			size: 2,
+			opacity: 0.4
+		},
+		type: 'scatter'
 	};
-		
 	var trace2 = {
-		type: 'scatter',
 		x: x,
 		y: y,
-		mode: 'lines',
-		name: 'LCL/UCL',
-		showlegend: true,
-		line: {
-			color: 'red',
-			width: 2,
-			dash: 'dash'
-	
+		name: 'density',
+		ncontours: 20,
+		colorscale: 'Hot',
+		reversescale: true,
+		showscale: false,
+		type: 'histogram2dcontour'
 	};
-	
-	var trace3= {
-		type: 'scatter',
+	var trace3 = {
 		x: x,
-		y: y,
-		mode: 'lines',
-		name: 'Centre',
-		showlegend: true,
-		line: {
-			color: 'grey',
-			width: 2
+		name: 'x density',
+		marker: {color: 'rgb(102,0,0)'},
+		yaxis: 'y2',
+		type: 'histogram'
 	};
-		
-	var data = [trace1, trace2, trace3]
+	var trace4 = {
+		y: y,
+		name: 'y density',
+		marker: {color: 'rgb(102,0,0)'},
+		xaxis: 'x2',
+		type: 'histogram'
+	};
+	var data = [trace1, trace2, trace3, trace4];
 	var layout = {
-		title: 'Basic SPC Chart',
-		showlegend: true
+		showlegend: true,
+		autosize: false,
+		width: chartDiv.clientWidth,
+		height: chartDiv.clientHeight,
+		margin: {t: 50},
+		hovermode: 'closest',
+		bargap: 0,
 		xaxis: {
+			title: t1,
+			domain: [0, 0.85],
+			showgrid: false,
 			zeroline: false
 		},
 		yaxis: {
-			range: [-10,10],
+			title: t2,
+			domain: [0, 0.85],
+			showgrid: false,
+			zeroline: false
+		},
+		xaxis2: {
+			domain: [0.85, 1],
+			showgrid: false,
+			zeroline: false
+		},
+		yaxis2: {
+			domain: [0.85, 1],
+			showgrid: false,
 			zeroline: false
 		}
 	};
 	
-	Plotly.newPlot('chartDiv', data,layout);
-
+	Plotly.newPlot(chartDiv, data, layout);	
 }
 
 </script>
