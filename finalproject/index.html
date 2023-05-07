@@ -7,8 +7,8 @@
 	<title>Mapping substance use recovery providers in Iowa</title>
 
 	<script src="../data/iowaDataStatistics.js"></script>
-	<script src="../data/uSDataStatistics.js"></script>
-	//<script src="../data/Providers.geojson"></script>
+	//<script src="../data/uSDataStatistics.js"></script>
+	<script src="../data/providers.js"></script>
 	
 	<link rel="stylesheet" href="Choropleth_2Ddensity.css" />
 	<link rel="stylesheet" href="../lib/leaflet/leaflet.css" />
@@ -40,8 +40,8 @@
 <script type="text/javascript">
 
 // define global variables
-var TRACE1 = "% IowaSubstanceInducedDeaths1999_2018_Crude Rate";
-var TRACE2 = "% USSubsstanceInducedMort2013_2018_CrudeRate";
+var TRACE1 = "% County";
+var TRACE2 = "% ServiceTyp";
 var NUMBER_OF_CLASS = 8;                                      // range: 5 ~ 9
 var CLASSIFICATION_METHOD = "Quantile"                        // Equal, Quantile or Jenks
 var COLOR_HUE = "Yellow_to_Red";                              // Red, Green or Blue
@@ -97,7 +97,7 @@ var app = {
  */
 function entryPoint() {
 	
-	app.assembledGeoJSON = assembleGeoJSON(GEO_JSON, GEO_VARIABLES);
+	app.assembledGeoJSON = assembleGeoJSON(iowaDataStatistics,uSDataStatistics);
 	
 	var map = "map1";
 	app[map] = {};
