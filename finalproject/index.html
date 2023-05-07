@@ -39,8 +39,8 @@
 <script type="text/javascript">
 
 // define global variables
-var TRACE1 = "% White";
-var TRACE2 = "% Black";
+var TRACE1 = "% IowaSubstanceInducedDeaths1999_2018_Crude Rate";
+var TRACE2 = "% IowaSubstanceInducedDeaths1999_2018_Population";
 var NUMBER_OF_CLASS = 8;                                      // range: 5 ~ 9
 var CLASSIFICATION_METHOD = "Quantile"                        // Equal, Quantile or Jenks
 var COLOR_HUE = "Yellow_to_Red";                              // Red, Green or Blue
@@ -96,13 +96,13 @@ var app = {
  */
 function entryPoint() {
 	
-	app.assembledGeoJSON = assembleGeoJSON(GEO_JSON, GEO_VARIABLES);
+	app.assembledGeoJSON = assembleGeoJSON(GEO_VARIABLES,GEO_JSON);
 	
 	var map = "map1";
 	app[map] = {};
 	var mapN = app[map];
 	
-	mapN.map = draw_baseMap(map, GEO_VARIABLES[0], TRACE1);
+	mapN.map = draw_baseMap(map, GEO_JSON[0], TRACE1);
 	var e = document.getElementById(map).getElementsByClassName("traceSelect")[0];
 	var trace = e.options[e.selectedIndex].value;
 	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
@@ -113,7 +113,7 @@ function entryPoint() {
 	app[map] = {};
 	var mapN = app[map];
 	
-	mapN.map = draw_baseMap(map, GEO_VARIABLES[0], TRACE2);
+	mapN.map = draw_baseMap(map, GEO_JSON[0], TRACE2);
 	var e = document.getElementById(map).getElementsByClassName("traceSelect")[0];
 	var trace = e.options[e.selectedIndex].value;
 	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
@@ -129,20 +129,20 @@ function entryPoint() {
  * geoJSON: GeoJSON format with properties of geoid and geometry data
  * geoVariables: CSV format first column of each row must be geoid
  */
-function assembleGeoJSON(geoJSON, geoVariables) {
+function assembleGeoJSON(geoVariables,geoJSON) {
 	
 	var geoFeatures = {}                                             // key: geoid,  value: {geometry, properties}
 	geoJSON.features.forEach(function(row, i) {
 		geoFeatures[row.properties.geoid] = {"geometry": row.geometry, "properties": row.properties}
 	});
 	
-	var title = geoVariables[0];                                     // save 1st row to a title
+	var title = geoJSON[0];                                     // save 1st row to a title
 	var resultGeoJSON = {"type":"FeatureCollection", "features":[]}
 	geoVariables.forEach(function(row, i) {
 		if (i == 0) return;                                          // skip the title's row
 		var geoid = row[0];
-		if (!geoFeatures.hasOwnProperty(geoid)) return;              // skip if no geometry data in the geoJSON
-		var geoFeature = geoFeatures[geoid];
+		if (!geoFeatures.hasOwnProperty(COUNTY)) return;              // skip if no geometry data in the geoJSON
+		var geoFeature = geoFeatures[COUNTY];
 		var feature = {"type": "Feature", "geometry": geoFeature.geometry, "properties": geoFeature.properties};
 		for (var c=1; c<title.length; c++) 
 			feature.properties[title[c]] = row[c];
@@ -341,103 +341,6 @@ function draw_choroplethMap(mapN, item) {
 		return div;
 	};
 	mapN.legend.addTo(mapN.map);
-}
-
-
-/**
- * draw a 2D Histogram Contour Plot chart
- * map1: <div> id of map1
- * map2: <div> id of map2
- * cDIV: <div> id of chart
- */
-function draw_2dDensityPlots(map1="map1", map2="map2", cDIV="chart") {
-
-	var e = document.getElementById(map1).getElementsByClassName("traceSelect")[0];
-	var t1 = e.options[e.selectedIndex].value;
-	
-	var e = document.getElementById(map2).getElementsByClassName("traceSelect")[0];
-	var t2 = e.options[e.selectedIndex].value;
-	
-	var chartDiv = document.getElementById(cDIV).getElementsByClassName("chart")[0];
-	
-	var x = [];
-	var y = [];
-	app.assembledGeoJSON.features.forEach(function(feature, i) {
-		if (feature.properties[t1] != NO_DATA) x.push(feature.properties[t1]);
-		if (feature.properties[t2] != NO_DATA) y.push(feature.properties[t2]);
-		
-	});
-	
-	var trace1 = {
-		x: x,
-		y: y,
-		mode: 'markers',
-		name: 'points',
-		marker: {
-			color: 'rgb(102,0,0)',
-			size: 2,
-			opacity: 0.4
-		},
-		type: 'scatter'
-	};
-	var trace2 = {
-		x: x,
-		y: y,
-		name: 'density',
-		ncontours: 20,
-		colorscale: 'Hot',
-		reversescale: true,
-		showscale: false,
-		type: 'histogram2dcontour'
-	};
-	var trace3 = {
-		x: x,
-		name: 'x density',
-		marker: {color: 'rgb(102,0,0)'},
-		yaxis: 'y2',
-		type: 'histogram'
-	};
-	var trace4 = {
-		y: y,
-		name: 'y density',
-		marker: {color: 'rgb(102,0,0)'},
-		xaxis: 'x2',
-		type: 'histogram'
-	};
-	var data = [trace1, trace2, trace3, trace4];
-	var layout = {
-		showlegend: true,
-		autosize: false,
-		width: chartDiv.clientWidth,
-		height: chartDiv.clientHeight,
-		margin: {t: 50},
-		hovermode: 'closest',
-		bargap: 0,
-		xaxis: {
-			title: t1,
-			domain: [0, 0.85],
-			showgrid: false,
-			zeroline: false
-		},
-		yaxis: {
-			title: t2,
-			domain: [0, 0.85],
-			showgrid: false,
-			zeroline: false
-		},
-		xaxis2: {
-			domain: [0.85, 1],
-			showgrid: false,
-			zeroline: false
-		},
-		yaxis2: {
-			domain: [0.85, 1],
-			showgrid: false,
-			zeroline: false
-		}
-	};
-	
-	Plotly.newPlot(chartDiv, data, layout);	
 }
 
 </script>
