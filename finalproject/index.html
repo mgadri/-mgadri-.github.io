@@ -97,13 +97,13 @@ var app = {
  */
 function entryPoint() {
 	
-	app.assembledGeoJSON = assembleGeoJSON(iowaDataStatistics,uSDataStatistics);
+	app.assembledGeoJSON = assembleGeoJSON(iowaDataStatistics,providers);
 	
 	var map = "map1";
 	app[map] = {};
 	var mapN = app[map];
 	
-	mapN.map = draw_baseMap(map, GEO_VARIABLES[0], TRACE1);
+	mapN.map = draw_baseMap(map, providersS[0], TRACE1);
 	var e = document.getElementById(map).getElementsByClassName("traceSelect")[0];
 	var trace = e.options[e.selectedIndex].value;
 	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
@@ -114,7 +114,7 @@ function entryPoint() {
 	app[map] = {};
 	var mapN = app[map];
 	
-	mapN.map = draw_baseMap(map, GEO_VARIABLES[0], TRACE2);
+	mapN.map = draw_baseMap(map, providers[0], TRACE2);
 	var e = document.getElementById(map).getElementsByClassName("traceSelect")[0];
 	var trace = e.options[e.selectedIndex].value;
 	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
