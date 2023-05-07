@@ -7,7 +7,7 @@
 	<title>Two choropleth Maps with 2D Density Plots</title>
 
 	<script src="../data/GEO_JSON_Iowa.js"></script>
-	<script src="../data/GEO_VARIABLES_Iowa.js"></script>
+	//<script src="../data/GEO_VARIABLES_Iowa.js"></script>
 	
 	<link rel="stylesheet" href="Choropleth_2Ddensity.css" />
 	<link rel="stylesheet" href="../lib/leaflet/leaflet.css" />
@@ -96,7 +96,7 @@ var app = {
  */
 function entryPoint() {
 	
-	app.assembledGeoJSON = assembleGeoJSON(GEO_VARIABLES,GEO_JSON);
+	app.assembledGeoJSON = assembleGeoJSON(GEO_JSON);
 	
 	var map = "map1";
 	app[map] = {};
