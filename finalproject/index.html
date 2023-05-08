@@ -390,9 +390,10 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng)
-                    }
-                    };
+                   maker= L.marker(latlng);
+		   return marker;
+		}
+                    
             
              var twelve = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
