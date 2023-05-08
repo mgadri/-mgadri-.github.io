@@ -335,7 +335,432 @@
                }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
 		       legend2b.addTo(this);
                }	
-               });	
+               });
+		
+	 //map 4  
+            var OSM4 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 18
+                });	
+            
+            var map4 = L.map('map4', {
+                center: [42,-93],
+                zoom: 7,
+                layers: [OSM4]
+		          });
+   
+            //map 4 data that starts on the data 
+            var all = L.geoJSON(SIRP, {
+                pointToLayer: function(feature, latlng) {
+                return L.marker(latlng)
+                },
+                onEachFeature: function (feature, layer) {
+                    popupOptions = {maxWidth: 200}; 
+                    if (feature.properties.URL == "NA"){ 
+                    layer.bindPopup("<b>Site name: </b>" + feature.properties.Name +  
+                                    "<br><b>Phone Number: </b>" + feature.properties.Phone +                  
+                                    "<br><b>Link:</b> No URL available",popupOptions);}
+                    else{layer.bindPopup("<b>Site name: </b>" + feature.properties.Name + 
+                                         "<br><b>Phone Number: </b>" + feature.properties.Phone +                  
+                                         "<br><b>Link: </b>" + '<a href="'+feature.properties.URL+'">'+feature.properties.URL+'</a>'                   
+                    ,popupOptions);   }
+                    }}
+                    )
+                    .addTo(map4);
+            
+            //map 4 pop up function
+            function popupProvider(feature, layer) {
+                popupOptions = {maxWidth: 200}; 
+                    if (feature.properties.URL == "NA"){ 
+                    layer.bindPopup("<b>Site name: </b>" + feature.properties.Name +  
+                                    "<br><b>Phone Number: </b>" + feature.properties.Phone +                  
+                                    "<br><b>Link:</b> No URL available",popupOptions);}
+                    else{layer.bindPopup("<b>Site name: </b>" + feature.properties.Name + 
+                                         "<br><b>Phone Number: </b>" + feature.properties.Phone +                  
+                                         "<br><b>Link: </b>" + '<a href="'+feature.properties.URL+'">'+feature.properties.URL+'</a>'                   
+                    ,popupOptions);   }
+                    }
+            
+            //map 4 data for buttons 
+            var housing = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.ServiceTyp == 'RecoveryHousing') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+             var twelve = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.twelve_Step == 'Yes') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            var Out = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Outpatient == 'Yes') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            var Religion = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.ReligiousB == 'Yes') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            var women = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Gender == 'Women') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            var men = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Gender == 'Men') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+                
+            var family = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Gender == 'Family') {
+                    return true;
+                    }
+                    },
+                 pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+                
+            var veteran = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Gender == 'Veterans') {
+                    return true;
+                    }
+                    },
+                 pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            //Map4 legends
+                var legend4a = L.control({
+                position: 'bottomleft'
+                });
+        
+            legend4a.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br>";
+                return div;
+                };
+                legend4a.addTo(map4);
+            
+               var legend4b = L.control({
+                position: 'bottomleft'
+                });
+
+            legend4b.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>With Housing</b>";
+                return div;
+                };
+          
+            
+             var legend4c = L.control({
+                position: 'bottomleft'
+                });
+
+            legend4c.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>For Women</b>";
+                return div;
+                };
+       
+            
+             var legend4d = L.control({
+                position: 'bottomleft'
+                });
+
+            legend4d.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>For Men</b>";
+                return div;
+                };
+      
+            
+             var legend4e = L.control({
+                position: 'bottomleft'
+                });
+
+            legend4e.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>For Families</b>";
+                return div;
+                };
+    
+            
+             var legend4f = L.control({
+                position: 'bottomleft'
+                });
+
+            legend4f.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>For Veterans</b>";
+                return div;
+                };
+
+            
+             var legend4g = L.control({
+                position: 'bottomleft'
+                });
+
+            legend4g.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>With Outpatient Services</b>";
+                return div;
+                };
+            
+            var legend4h = L.control({
+                position: 'bottomleft'
+                });
+
+            legend4h.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>With Religious and Faith Based Programming</b>";
+                return div;
+                };
+            
+            //map 4 filtering
+             $("#all").click(function() {
+                map4.addLayer(all);
+                map4.addControl(legend4a);
+                map4.removeLayer(women);
+                map4.removeLayer(men);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#women").click(function() {
+                map4.addLayer(women);
+                map4.addControl(legend4c);
+                map4.removeLayer(all);
+                map4.removeLayer(men);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+
+            $("#men").click(function() {
+                map4.addLayer(men);
+                map4.addControl(legend4d);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+
+            $("#family").click(function() {
+                map4.addLayer(family);
+                map4.addControl(legend4e);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(men);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+                
+            $("#veteran").click(function() {
+                map4.addLayer(veteran);
+                map4.addControl(legend4f);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(men);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#housing").click(function() {
+                map4.addLayer(housing);
+                map4.addControl(legend4b);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(men);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#twelve").click(function() {
+                map4.addLayer(twelve);
+                map4.addControl(legend4e);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(men);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#Out").click(function() {
+                map4.addLayer(Out);
+                map4.addControl(legend4g);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(men);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#Religion").click(function() {
+                map4.addLayer(Religion);
+                map4.addControl(legend4h);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(men);
+                map4.removeLayer(Out);
+                map4.removeLayer(twelve);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                });
 		
            </script>
       </body>
