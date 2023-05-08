@@ -381,7 +381,7 @@
                     ,popupOptions);   }
                     }
             
-            ///map 4 data for buttons 
+          //map 4 data for buttons 
             var housing = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
                 filter: function(feature, layer) {
@@ -390,8 +390,9 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                   return L.marker(latlng)};
-                    
+                    return L.marker(latlng, {icon: Marker});
+                    },
+                    })
             
              var twelve = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -401,7 +402,7 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon:smallIcon});
+                    return L.marker(latlng, {icon: Marker});
                     },
                     })
             
@@ -413,7 +414,7 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: smallIcon});
+                    return L.marker(latlng, {icon: Marker});
                     },
                     })
             
@@ -425,7 +426,7 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: smallIcon});
+                    return L.marker(latlng, {icon: Marker});
                     },
                     })
             
@@ -437,7 +438,7 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: smallIcon});
+                    return L.marker(latlng, {icon: Marker});
                     },
                     })
             
@@ -449,7 +450,7 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: smallIcon});
+                    return L.marker(latlng, {icon: Marker});
                     },
                     })
                 
@@ -461,7 +462,7 @@
                     }
                     },
                  pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: smallIcon});
+                    return L.marker(latlng, {icon: Marker});
                     },
                     })
                 
@@ -473,9 +474,10 @@
                     }
                     },
                  pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: smallIcon});
+                    return L.marker(latlng, {icon: Marker});
                     },
                     })
+	    
             //Map4 legends
                 var legend4a = L.control({
                 position: 'bottomleft'
