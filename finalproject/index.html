@@ -32,11 +32,11 @@
   
                 <style>    
          
-                     #map2container {position:absolute; background-color:#D3D3D3; color:black; text-align:left; margin-right: 0px; margin-left:0px; width:600px; height:430px;padding 0; }
+                     #map1container {position:absolute; background-color:#D3D3D3; color:black; text-align:left; margin-right: 0px; margin-left:0px; width:600px; height:430px;padding 0; }
+                     #map1 {position: relative;  height: 430px; margin-left:600px;border-left:2px; padding 0; overflow:hidden;}
+                     #map2container {position:absolute; background-color:#D3D3D3; color:black; text-align:center; margin-right: 0px; margin-left:0px; width:600px; height:430px;padding 0; }
                      #map2 {position: relative;  height: 430px; margin-left:600px;border-left:2px; padding 0; overflow:hidden;}
-                     #map4container {position:absolute; background-color:#D3D3D3; color:black; text-align:center; margin-right: 0px; margin-left:0px; width:600px; height:430px;padding 0; }
-                     #map4 {position: relative;  height: 430px; margin-left:600px;border-left:2px; padding 0; overflow:hidden;}
-		     #map5container {position:absolute; background-color:#F0F0F0; color:black; text-align:left; margin-right: 0px; margin-left:0px; width:99.9%; height:460px;padding 0; }
+		     #map3container {position:absolute; background-color:#F0F0F0; color:black; text-align:left; margin-right: 0px; margin-left:0px; width:99.9%; height:460px;padding 0; }
        
                      /*legends*/
                      .legend {
@@ -108,15 +108,12 @@
             </head>
     <body>  
    
-        <div id='map2container'>
-            <h2>Substance Use In Iowa </h2>
-            <p><b>Background: </b>Rates of alcohol and binge alcohol use are higher in Iowa and residents report lower risk associated with substance use when compared to the rest of the country (Governor’s Office of Drug Control Policy, 2019; Substance Abuse and Mental Health Services Administration, 2018).  Decreased economic resources and increased social isolation related to reductions in family farms has also led to increased alcohol use and mortalities in Iowa (Iowa Department of Public Health State Epidemiological Workgroup, 2016). </p>  
-            <p><b>Map: </b>The above map shows Iowa's substance induced mortality crude rate is 21.8 per 100,000.   The map to the right displays the number of substance induced mortalities from 1999-2018 from the Center for Disease Control for Iowa. The map also features Census Bureau 5-year estimates of the percent of each county living below poverty level in the past 12 months.</p>  
-            <p><b>Interactivity: </b> Click on each county to observe the number of substance induced deaths.  The counties that are deep purple show the counties that are among the highest in substance induced mortalities. Toggle the menu to see the percent in each county living below poverty.  The counties in dark blue are among the highest percent living below poverty.  Notice how the counties in the lower east corner have both high mortalities and percent living below poverty.</p>
-        </div>    
-            <div id="map2"></div>
+        <div id='map1container'>
+            <p>The map shows substance-induced mortalities from 1999-2018 from the Center for Disease Control. It also captured Census Bureau 5-year estimates of the percent of each county living below the poverty level in the past 12 months.</p>  
+            <p>Click on each county to observe the number of substance-induced deaths. Also, toggle the menu to see the percentage in each county living below poverty.</p>  
+            <div id="map1"></div>
              
-         <div id='map4container'>
+         <div id='map2container'>
             <h2>Provider Filters</h2>
             <p>Click on the buttons below to explore options of Iowa Substance Use Recovery Providers:</p>
              <div class="btn-group">
@@ -131,26 +128,200 @@
                  <br> <button type="button" id="all" class="button2">All Recovery Providers</button>
                  </div>
                  </div>
-            <div id="map4"></div>
+            <div id="map2"></div>
         
-         <div id='map5container'>
-            <p>*<em>The tools above have been created for the purposes of this final project and should not be considered an exhausted list of providers or used for purposes beyond this course.  If you are interested in learning more about the Advancing Substance Use Recovery Project in Iowa, please reach out to the project's Principle Investigator Dr. Shawn Dorius.</em></p>
-            <br>
-            <br>
-            <h5><b>References:</b></h5>
-             Center for Disease Control (2020, March.) <em>Understanding the epidemic.</em> Retreived from: <a href="https://www.cdc.gov/drugoverdose/epidemic/index.html">https://www.cdc.gov/drugoverdose/epidemic/index.html</a>
-            <br>Dorius, C., Dorius, S., Rouse, H.L., Richey, E., Talbert, E., Van Selous, K., and Bahe, D. (2020, January). <em>Translating Research into Action: A Multi-method Approach for Informing Substance Use Policy and Practice.</em> Report prepared for the Iowa Department of Public Health.
-            <br>Governor’s Office of Drug Control Policy. (2019) <em>Iowa Drug Control Strategy.</em> Retrieved from: <a href="https://odcp.iowa.gov/sites/default/files/documents/2018/11/2019strategyfinal.pdf">https://odcp.iowa.gov/sites/default/files/documents/2018/11/2019strategyfinal.pdf</a>
-             <br>Iowa Department of Public Health State Epidemiological Workgroup. (2016). <em>State of Iowa Substance Use Epidemiological Profile 2016.</em> Retrieved from <a href="https://idph.iowa.gov/Portals/1/userfiles/137/2016 Epi Profile.pdf">https://idph.iowa.gov/Portals/1/userfiles/137/2016 Epi Profile.pdf</a>
-            <br>National Insitutue on Drug Abuse (2020, February). <em>Trends and Statistics.</em>  Retreived From: <a href="https://www.drugabuse.gov/related-topics/trends-statistics">https://www.drugabuse.gov/related-topics/trends-statistics</a>
-            <br>Substance Abuse and Mental Health Services Administration. (2018). <em>2016-2017 National Survey on Drug Use and Health National Maps of Prevalence Estimates, by State.</em> Retrieved from: <a href="https://www.samhsa.gov/data/sites/default/files/cbhsq-reports/NSDUHsaeMaps2017/NSDUHsaeMaps2017.pdf">https://www.samhsa.gov/data/sites/default/files/cbhsq-reports/NSDUHsaeMaps2017/NSDUHsaeMaps2017.pdf</a>
-            <br>United States Department of Health and Human Services (2019, September 4th).  <em>What is The 	U.S. Opioid Epidemic?</em>  Retrieved from:  <a href="https://www.hhs.gov/opioids/about-the-epidemic/index.html">https://www.hhs.gov/opioids/about-the-epidemic/index.html</a>
+         <div id='map3container'>
+            <p><em>The tools above have been created for the purposes of this final project and should not be considered an exhausted list of providers or used for purposes beyond this course.</em></p>
             </div>
        
         <script>
 	
-	
-	//map  2   
+	//this section deals with map 1, Chlorpleth map   
+            var OSM1 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 18
+                });	  
+            var map1 = L.map('map1', {
+                center: [42,-93],
+                zoom: 7,
+                layers: [OSM1]
+		          });
+		
+            //coloring & style functions 
+            function getColor1a(d) {
+		      return d  > 200  ? '#4A235A' :
+                     d  > 150  ? '#6C3483' :
+				     d  > 100  ? '#7D3C98' :
+				     d  > 50   ? '#A569BD' :
+				     d  >25   ? '#BB8FCE' :
+                     d  >10   ? '#E8DAEF' :
+                     "#F9EBEA"; 
+                     }  
+		
+            function style1a(feature) {
+                return {
+                    weight: 1,
+                    opacity: 1,
+                    color: 'white',
+                    fillOpacity: 0.7,
+			        fillColor: getColor1a(feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths)
+		            };
+	               } 
+		
+            function getColor1b(d) {
+		      return d  > 25  ? '#1B4F72' :
+                     d  > 20  ? '#2874A6' :
+				     d  > 15  ? '#2980B9' :
+				     d  > 10   ? '#7FB3D5' :
+				     d  >5   ? '#D4E6F1' :
+                     d  >0   ? '#EAF2F8' :
+                     "#F9EBEA"; 
+                     }
+            function style1b(feature) {
+                return {
+                    weight: 1,
+                    opacity: 1,
+                    color: 'white',
+                    fillOpacity: 0.7,
+			        fillColor: getColor1b(feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty)
+		            };
+	               }  
+		
+            // highlighting & pop up functions
+            function highlightFeature1a(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 4,
+                    color: 'grey',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                        }
+                        }
+
+            function resetHighlight1a(e) {
+                IMort.resetStyle(e.target);
+                }
+
+            function onEachFeature1a(feature, layer) {
+                layer.on({
+                mouseover: highlightFeature1a,
+                mouseout: resetHighlight1a
+                });
+            if (feature.properties) {
+                layer.bindPopup("<b>County: </b>" + feature.properties.COUNTY + "<br><b>Number of Substance Induced Deaths: </b>" + feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths);
+                }
+                }
+            
+            function highlightFeature1b(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 4,
+                    color: 'grey',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                        }
+                        }
+            
+            function resetHighlight1b(e) {
+                IPov.resetStyle(e.target);
+                }
+            
+            function onEachFeature1b(feature, layer) {
+                layer.on({
+                mouseover: highlightFeature1b,
+                mouseout: resetHighlight1b
+                });
+            if (feature.properties) {
+                layer.bindPopup("<b>County: </b>" + feature.properties.COUNTY + "<br><b>Percent Below Poverty: </b>" + feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty);
+                }
+                }
+            
+            //adding data          
+            var IMort = L.geoJson(IMort, {
+                style: style1a,
+                onEachFeature: onEachFeature2a
+                }).addTo(map1);  
+		
+            var IPov = L.geoJson(IPov, {
+                style: style1b,
+                onEachFeature: onEachFeature1b
+                })  
+            
+            //map 1 legends
+            var legend1a = L.control({
+                position: 'bottomleft'
+                });
+
+            legend1a.onAdd = function(map1) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                IMort = [10, 25, 50, 100, 150, 200],
+                labels = [];
+                div.innerHTML += "<b>Substance Induced Deaths</b><br>1999-2018<br>";
+                for (var i = 0; i < IMort.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor1a(IMort[i] + 1) + '"></i> ' +
+                        IMort[i] + (IMort[i + 1] ? '&ndash;' + IMort[i + 1] + '<br>' : '+');
+                        }
+                return div;
+                };
+                legend1a.addTo(map1);
+     
+            var legend1b = L.control({
+                position: 'bottomleft'
+                });
+
+            legend1b.onAdd = function(map1) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                IPov = [0, 5, 10, 15, 20, 25],
+                labels = [];
+                div.innerHTML += "<b>Percent Below Poverty</b><br>2013-2018<br>";
+                for (var i = 0; i < IPov.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor1b(IPov[i] + 1) + '"></i> ' +
+                        IPov[i] + (IPov[i + 1] ? '&ndash;' + IPov[i + 1] + '<br>' : '+');
+                        }
+                return div;
+                };
+             
+  
+            //map 1 layer control
+		    var baseMap = {
+		      "OpenStreetMap": OSM1
+                };
+       		
+		    var overlayMaps = {
+		      "Substance Induced Deaths from 1999-2018": IMort,
+              "Precent Living Below Poverty Rate": IPov
+		      };			
+
+            L.control.layers(baseMap, overlayMaps).addTo(map1);	
+            
+            //legend filtering
+            map1.on('overlayremove', function (eventLayer) {
+                console.log(eventLayer.name  + "off");
+                if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
+                this.removeControl(legend1a);
+                }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
+                this.removeControl(legend1b);
+	            }
+                });
+
+            map1.on('overlayadd', function (eventLayer) {
+	          console.log(eventLayer.name + "on");
+	           if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
+               legend1a.addTo(this);
+               }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
+		       legend1b.addTo(this);
+               }	
+               });
+		
+	 //this section deals with map 2, location of substance providers
             var OSM2 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
                 maxZoom: 18
@@ -161,195 +332,8 @@
                 zoom: 7,
                 layers: [OSM2]
 		          });
-            
-            //map 2 coloring & style functions 
-            function getColor2a(d) {
-		      return d  > 200  ? '#4A235A' :
-                     d  > 150  ? '#6C3483' :
-				     d  > 100  ? '#7D3C98' :
-				     d  > 50   ? '#A569BD' :
-				     d  >25   ? '#BB8FCE' :
-                     d  >10   ? '#E8DAEF' :
-                     "#F9EBEA"; 
-                     }
-             
-            function style2a(feature) {
-                return {
-                    weight: 1,
-                    opacity: 1,
-                    color: 'white',
-                    fillOpacity: 0.7,
-			        fillColor: getColor2a(feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths)
-		            };
-	               }    
-            
-            function getColor2b(d) {
-		      return d  > 25  ? '#1B4F72' :
-                     d  > 20  ? '#2874A6' :
-				     d  > 15  ? '#2980B9' :
-				     d  > 10   ? '#7FB3D5' :
-				     d  >5   ? '#D4E6F1' :
-                     d  >0   ? '#EAF2F8' :
-                     "#F9EBEA"; 
-                     }
-             
-            function style2b(feature) {
-                return {
-                    weight: 1,
-                    opacity: 1,
-                    color: 'white',
-                    fillOpacity: 0.7,
-			        fillColor: getColor2b(feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty)
-		            };
-	               }   
-            
-            //map 2 highlighting & pop up functions
-            function highlightFeature2a(e) {
-                var layer = e.target;
-                layer.setStyle({
-                    weight: 4,
-                    color: 'grey',
-                    dashArray: '',
-                    fillOpacity: 0.7
-                    });
-                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                        layer.bringToFront();
-                        }
-                        }
-
-            function resetHighlight2a(e) {
-                IMort.resetStyle(e.target);
-                }
-
-            function onEachFeature2a(feature, layer) {
-                layer.on({
-                mouseover: highlightFeature2a,
-                mouseout: resetHighlight2a
-                });
-            if (feature.properties) {
-                layer.bindPopup("<b>County: </b>" + feature.properties.COUNTY + "<br><b>Number of Substance Induced Deaths: </b>" + feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths);
-                }
-                }
-            
-            function highlightFeature2b(e) {
-                var layer = e.target;
-                layer.setStyle({
-                    weight: 4,
-                    color: 'grey',
-                    dashArray: '',
-                    fillOpacity: 0.7
-                    });
-                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                        layer.bringToFront();
-                        }
-                        }
-            
-            function resetHighlight2b(e) {
-                IPov.resetStyle(e.target);
-                }
-            
-            function onEachFeature2b(feature, layer) {
-                layer.on({
-                mouseover: highlightFeature2b,
-                mouseout: resetHighlight2b
-                });
-            if (feature.properties) {
-                layer.bindPopup("<b>County: </b>" + feature.properties.COUNTY + "<br><b>Percent Below Poverty: </b>" + feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty);
-                }
-                }
-            
-            //map 2 data          
-            var IMort = L.geoJson(IMort, {
-                style: style2a,
-                onEachFeature: onEachFeature2a
-                }).addTo(map2);  
-		
-            var IPov = L.geoJson(IPov, {
-                style: style2b,
-                onEachFeature: onEachFeature2b
-                })  
-            
-            //map 2 legends
-            var legend2a = L.control({
-                position: 'bottomleft'
-                });
-
-            legend2a.onAdd = function(map2) {
-                var div = L.DomUtil.create('div', 'info legend'),
-                IMort = [10, 25, 50, 100, 150, 200],
-                labels = [];
-                div.innerHTML += "<b>Substance Induced Deaths</b><br>1999-2018<br>";
-                for (var i = 0; i < IMort.length; i++) {
-                    div.innerHTML +=
-                        '<i style="background:' + getColor2a(IMort[i] + 1) + '"></i> ' +
-                        IMort[i] + (IMort[i + 1] ? '&ndash;' + IMort[i + 1] + '<br>' : '+');
-                        }
-                return div;
-                };
-                legend2a.addTo(map2);
-     
-            var legend2b = L.control({
-                position: 'bottomleft'
-                });
-
-            legend2b.onAdd = function(map2) {
-                var div = L.DomUtil.create('div', 'info legend'),
-                IPov = [0, 5, 10, 15, 20, 25],
-                labels = [];
-                div.innerHTML += "<b>Percent Below Poverty</b><br>2013-2018<br>";
-                for (var i = 0; i < IPov.length; i++) {
-                    div.innerHTML +=
-                        '<i style="background:' + getColor2b(IPov[i] + 1) + '"></i> ' +
-                        IPov[i] + (IPov[i + 1] ? '&ndash;' + IPov[i + 1] + '<br>' : '+');
-                        }
-                return div;
-                };
-             
-  
-            //map 2 layer control
-		    var baseMap = {
-		      "OpenStreetMap": OSM2
-                };
-       		
-		    var overlayMaps = {
-		      "Substance Induced Deaths from 1999-2018": IMort,
-              "Precent Living Below Poverty Rate": IPov
-		      };			
-
-            L.control.layers(baseMap, overlayMaps).addTo(map2);	
-            
-            //legend filtering
-            map2.on('overlayremove', function (eventLayer) {
-                console.log(eventLayer.name  + "off");
-                if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
-                this.removeControl(legend2a);
-                }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
-                this.removeControl(legend2b);
-	            }
-                });
-
-            map2.on('overlayadd', function (eventLayer) {
-	          console.log(eventLayer.name + "on");
-	           if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
-               legend2a.addTo(this);
-               }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
-		       legend2b.addTo(this);
-               }	
-               });
-		
-	 //map 4  
-            var OSM4 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-                maxZoom: 18
-                });	
-            
-            var map4 = L.map('map4', {
-                center: [42,-93],
-                zoom: 7,
-                layers: [OSM4]
-		          });
    
-            //map 4 data that starts on the data 
+            //adding data
             var all = L.geoJSON(SIRP, {
                 pointToLayer: function(feature, latlng) {
                 return L.marker(latlng)
@@ -366,9 +350,9 @@
                     ,popupOptions);   }
                     }}
                     )
-                    .addTo(map4);
+                    .addTo(map2);
             
-            //map 4 pop up function
+            //pop up function
             function popupProvider(feature, layer) {
                 popupOptions = {maxWidth: 200}; 
                     if (feature.properties.URL == "NA"){ 
@@ -381,7 +365,7 @@
                     ,popupOptions);   }
                     }
             
-          //map 4 data for buttons 
+          //data for each button 
             var housing = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
                 filter: function(feature, layer) {
@@ -486,25 +470,25 @@
                     },
                     });
 	    
-            //Map4 legends
-                var legend4a = L.control({
+            //Map2 legends
+                var legend2a = L.control({
                 position: 'bottomleft'
                 });
         
-            legend4a.onAdd = function(map4) {
+            legend2a.onAdd = function(map2) {
                 var div = L.DomUtil.create('div', 'info legend'),
                 all = [],
                 labels = [];
                 div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br>";
                 return div;
                 };
-                legend4a.addTo(map4);
+                legend2a.addTo(map2);
             
-               var legend4b = L.control({
+               var legend2b = L.control({
                 position: 'bottomleft'
                 });
 
-            legend4b.onAdd = function(map4) {
+            legend2b.onAdd = function(map2) {
                 var div = L.DomUtil.create('div', 'info legend'),
                 all = [],
                 labels = [];
@@ -513,11 +497,11 @@
                 };
           
             
-             var legend4c = L.control({
+             var legend2c = L.control({
                 position: 'bottomleft'
                 });
 
-            legend4c.onAdd = function(map4) {
+            legend2c.onAdd = function(map2) {
                 var div = L.DomUtil.create('div', 'info legend'),
                 all = [],
                 labels = [];
@@ -525,12 +509,11 @@
                 return div;
                 };
        
-            
-             var legend4d = L.control({
+             var legend2d = L.control({
                 position: 'bottomleft'
                 });
 
-            legend4d.onAdd = function(map4) {
+            legend2d.onAdd = function(map2) {
                 var div = L.DomUtil.create('div', 'info legend'),
                 all = [],
                 labels = [];
@@ -538,12 +521,11 @@
                 return div;
                 };
       
-            
-             var legend4e = L.control({
+             var legend2e = L.control({
                 position: 'bottomleft'
                 });
 
-            legend4e.onAdd = function(map4) {
+            legend2e.onAdd = function(map2) {
                 var div = L.DomUtil.create('div', 'info legend'),
                 all = [],
                 labels = [];
@@ -551,12 +533,11 @@
                 return div;
                 };
     
-            
-             var legend4f = L.control({
+             var legend2f = L.control({
                 position: 'bottomleft'
                 });
 
-            legend4f.onAdd = function(map4) {
+            legend2f.onAdd = function(map2) {
                 var div = L.DomUtil.create('div', 'info legend'),
                 all = [],
                 labels = [];
@@ -564,12 +545,11 @@
                 return div;
                 };
 
-            
-             var legend4g = L.control({
+             var legend2g = L.control({
                 position: 'bottomleft'
                 });
 
-            legend4g.onAdd = function(map4) {
+            legend2g.onAdd = function(map2) {
                 var div = L.DomUtil.create('div', 'info legend'),
                 all = [],
                 labels = [];
@@ -577,11 +557,11 @@
                 return div;
                 };
             
-            var legend4h = L.control({
+            var legend2h = L.control({
                 position: 'bottomleft'
                 });
 
-            legend4h.onAdd = function(map4) {
+            legend2h.onAdd = function(map2) {
                 var div = L.DomUtil.create('div', 'info legend'),
                 all = [],
                 labels = [];
@@ -589,65 +569,65 @@
                 return div;
                 };
             
-            //map 4 filtering
+            //map filtering
              $("#all").click(function() {
-                map4.addLayer(all);
-                map4.addControl(legend4a);
-                map4.removeLayer(women);
-                map4.removeLayer(men);
-                map4.removeLayer(family);
-                map4.removeLayer(veteran);
-                map4.removeLayer(housing);
-                map4.removeLayer(twelve);
-                map4.removeLayer(Out);
-                map4.removeLayer(Religion);
-                map4.removeControl(legend4b);
-                map4.removeControl(legend4c);
-                map4.removeControl(legend4d);
-                map4.removeControl(legend4e);
-                map4.removeControl(legend4f);
-                map4.removeControl(legend4g);
-                map4.removeControl(legend4h);
+                map2.addLayer(all);
+                map2.addControl(legend2a);
+                map2.removeLayer(women);
+                map2.removeLayer(men);
+                map2.removeLayer(family);
+                map2.removeLayer(veteran);
+                map2.removeLayer(housing);
+                map2.removeLayer(twelve);
+                map2.removeLayer(Out);
+                map2.removeLayer(Religion);
+                map2.removeControl(legend2b);
+                map2.removeControl(legend2c);
+                map2.removeControl(legend2d);
+                map2.removeControl(legend2e);
+                map2.removeControl(legend2f);
+                map2.removeControl(legend2g);
+                map2.removeControl(legend2h);
                 });
             
             $("#women").click(function() {
-                map4.addLayer(women);
-                map4.addControl(legend4c);
-                map4.removeLayer(all);
-                map4.removeLayer(men);
-                map4.removeLayer(family);
-                map4.removeLayer(veteran);
-                map4.removeLayer(housing);
-                map4.removeLayer(twelve);
-                map4.removeLayer(Out);
-                map4.removeLayer(Religion);
-                map4.removeControl(legend4a);
-                map4.removeControl(legend4b);
-                map4.removeControl(legend4d);
-                map4.removeControl(legend4e);
-                map4.removeControl(legend4f);
-                map4.removeControl(legend4g);
-                map4.removeControl(legend4h);
+                map2.addLayer(women);
+                map2.addControl(legend2c);
+                map2.removeLayer(all);
+                map2.removeLayer(men);
+                map2.removeLayer(family);
+                map2.removeLayer(veteran);
+                map2.removeLayer(housing);
+                map2.removeLayer(twelve);
+                map2.removeLayer(Out);
+                map2.removeLayer(Religion);
+                map2.removeControl(legend2a);
+                map2.removeControl(legend2b);
+                map2.removeControl(legend2d);
+                map2.removeControl(legend2e);
+                map2.removeControl(legend2f);
+                map2.removeControl(legend2g);
+                map2.removeControl(legend2h);
                 });
 
             $("#men").click(function() {
-                map4.addLayer(men);
-                map4.addControl(legend4d);
-                map4.removeLayer(all);
-                map4.removeLayer(women);
-                map4.removeLayer(family);
-                map4.removeLayer(veteran);
-                map4.removeLayer(housing);
-                map4.removeLayer(twelve);
-                map4.removeLayer(Out);
-                map4.removeLayer(Religion);
-                map4.removeControl(legend4a);
-                map4.removeControl(legend4b);
-                map4.removeControl(legend4c);
-                map4.removeControl(legend4e);
-                map4.removeControl(legend4f);
-                map4.removeControl(legend4g);
-                map4.removeControl(legend4h);
+                map2.addLayer(men);
+                map2.addControl(legend2d);
+                map2.removeLayer(all);
+                map2.removeLayer(women);
+                map2.removeLayer(family);
+                map2.removeLayer(veteran);
+                map2.removeLayer(housing);
+                map2.removeLayer(twelve);
+                map2.removeLayer(Out);
+                map2.removeLayer(Religion);
+                map2.removeControl(legend2a);
+                map2.removeControl(legend2b);
+                map2.removeControl(legend2c);
+                map2.removeControl(legend2e);
+                map2.removeControl(legend2f);
+                map2.removeControl(legend2g);
+                map2.removeControl(legend2h);
                 });
 
             $("#family").click(function() {
@@ -751,23 +731,23 @@
                 });
             
             $("#Religion").click(function() {
-                map4.addLayer(Religion);
-                map4.addControl(legend4h);
-                map4.removeLayer(all);
-                map4.removeLayer(women);
-                map4.removeLayer(family);
-                map4.removeLayer(veteran);
-                map4.removeLayer(housing);
-                map4.removeLayer(men);
-                map4.removeLayer(Out);
-                map4.removeLayer(twelve);
-                map4.removeControl(legend4a);
-                map4.removeControl(legend4b);
-                map4.removeControl(legend4c);
-                map4.removeControl(legend4d);
-                map4.removeControl(legend4e);
-                map4.removeControl(legend4f);
-                map4.removeControl(legend4g);
+                map2.addLayer(Religion);
+                map2.addControl(legend2h);
+                map2.removeLayer(all);
+                map2.removeLayer(women);
+                map2.removeLayer(family);
+                map2.removeLayer(veteran);
+                map2.removeLayer(housing);
+                map2.removeLayer(men);
+                map2.removeLayer(Out);
+                map2.removeLayer(twelve);
+                map2.removeControl(legend2a);
+                map2.removeControl(legend2b);
+                map2.removeControl(legend2c);
+                map2.removeControl(legend2d);
+                map2.removeControl(legend2e);
+                map2.removeControl(legend2f);
+                map2.removeControl(legend2g);
                 });
 		
            </script>
