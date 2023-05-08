@@ -1,349 +1,783 @@
-<!DOCTYPE html>
-<html>
+<!<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+      <title>Final Project</title>   
+            <!-- Load Leaflet from CDN -->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+                integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+                crossorigin=""/>
+            <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+                integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+                crossorigin=""></script>
 
+            <!-- Load Esri Leaflet from CDN -->
+            <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"
+                integrity="sha512-kq0i5Xvdq0ii3v+eRLDpa++uaYPlTuFaOYrfQ0Zdjmms/laOwIvLMAxh7cj1eTqqGG47ssAcTY4hjkWydGt6Eg=="
+                crossorigin=""></script>
+         
+            <!--Marker Cluster-->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+            <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+            <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>        
+            
+            <!--Boot Strap-->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
-<head>
-	<meta charset="utf-8" />
-	<title>Two choropleth Maps with 2D Density Plots</title>
+            <!--J Query-->
+            <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+        
+            <!--AwesomeMarker-->
+            <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+	        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+            <link rel="stylesheet" href="PlugIn/awesomemarkers/dist/leaflet.awesome-markers.css" />
+            <script src="PlugIn/awesomemarkers/dist/leaflet.awesome-markers.js"></script>
 
-	<script src="../data/GEO_JSON_Iowa.js"></script>
-	//<script src="../data/GEO_VARIABLES_Iowa.js"></script>
-	
-	<link rel="stylesheet" href="Choropleth_2Ddensity.css" />
-	<link rel="stylesheet" href="../lib/leaflet/leaflet.css" />
-	<script src="../lib/leaflet/leaflet.js"></script>
-	<script src="../lib/plotly/plotly.min.js"></script>
-	<script src="../lib/geostats-master/lib/geostats.min.js"></script>
-</head>
+            <!--geoJSON files-->    
+            <script src="IRP200430.geojson"></script>
+            <script src="GeoJSON/IowaData200503pov.geojson"></script>
+    
+                <style>    
+         
+                     #map2container {position:absolute; background-color:#D3D3D3; color:black; text-align:left; margin-right: 0px; margin-left:0px; width:600px; height:430px;padding 0; }
+                     #map2 {position: relative;  height: 430px; margin-left:600px;border-left:2px; padding 0; overflow:hidden;}
+                     #map4container {position:absolute; background-color:#D3D3D3; color:black; text-align:center; margin-right: 0px; margin-left:0px; width:600px; height:430px;padding 0; }
+                     #map4 {position: relative;  height: 430px; margin-left:600px;border-left:2px; padding 0; overflow:hidden;}
+		     #map5container {position:absolute; background-color:#F0F0F0; color:black; text-align:left; margin-right: 0px; margin-left:0px; width:99.9%; height:460px;padding 0; }
+       
+                     /*legends*/
+                     .legend {
+                        line-height: 18px;
+                        color: #555;
+                        background color:cornsilk
+                        }
+            
+                     .legend i {
+                         width: 10px;
+                         height: 10px;
+                         float: left;
+                         margin-right: 8px;
+                         opacity: 0.7;
+                         }
+                
+                     .info {
+                         padding: 6px 8px;
+                         font: 10px/10px Arial, Helvetica, sans-serif;
+                         background: white;
+                         background: rgba(255,255,255,0.8);
+                         box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                         border-radius: 5px;
+                         }
+            
+                     .info h4 {
+                         margin: 0 0 5px;
+                         color: #777;
+                         }
+            
+                     /*Text Formatingg*/
+                     h1 {text-align: center}
+                     h2 {margin-left: 5px; text-align: center}
+                     p  {margin-left: 5px;}
+                     h3 {text-align: center}
+                     h4 {text-align: center}
+            
+                     /*button styles*/
+                     .button1 {
+                         background-color: #4CAF50;
+                         border: none;
+                         color: white;
+                         padding: 5px 10px;
+                         text-align: center;
+                         text-decoration: none;
+                         display: inline-block;
+                         font-size: 14px;
+                         width: 200px;
+                         height: 60px;
+                         margin: 4px 2px;
+                         cursor: pointer;
+                         }
+                    
+                      .button2 {
+                         background-color: #4CAF50;
+                         border: none;
+                         color: white;
+                         padding: 5px 10px;
+                         text-align: center;
+                         text-decoration: none;
+                         display: inline-block;
+                         font-size: 14px;
+                         width: 300px;
+                         height: 30px;
+                         margin: 4px 2px;
+                         cursor: pointer;
+                         }
+                    </style>
+            </head>
+    <body>  
+   
+        <div id='map2container'>
+            <h2>Substance Use In Iowa </h2>
+            <p><b>Background: </b>Rates of alcohol and binge alcohol use are higher in Iowa and residents report lower risk associated with substance use when compared to the rest of the country (Governor’s Office of Drug Control Policy, 2019; Substance Abuse and Mental Health Services Administration, 2018).  Decreased economic resources and increased social isolation related to reductions in family farms has also led to increased alcohol use and mortalities in Iowa (Iowa Department of Public Health State Epidemiological Workgroup, 2016). </p>  
+            <p><b>Map: </b>The above map shows Iowa's substance induced mortality crude rate is 21.8 per 100,000.   The map to the right displays the number of substance induced mortalities from 1999-2018 from the Center for Disease Control for Iowa. The map also features Census Bureau 5-year estimates of the percent of each county living below poverty level in the past 12 months.</p>  
+            <p><b>Interactivity: </b> Click on each county to observe the number of substance induced deaths.  The counties that are deep purple show the counties that are among the highest in substance induced mortalities. Toggle the menu to see the percent in each county living below poverty.  The counties in dark blue are among the highest percent living below poverty.  Notice how the counties in the lower east corner have both high mortalities and percent living below poverty.</p>
+        </div>    
+            <div id="map2"></div>
+             
+         <div id='map4container'>
+            <h2>Provider Filters</h2>
+            <p>Click on the buttons below to explore options of Iowa Substance Use Recovery Providers:</p>
+             <div class="btn-group">
+                 <button type="button" id="women" class="button1">Female Only</button>
+                 <button type="button" id="men" class="button1">Male Only </button>
+                 <br><button type="button" id="family" class="button1">Families</button>
+		         <button type="button" id="veteran" class="button1">Veterans</button>
+                 <br><button type="button" id="housing" class="button1">Housing </button>
+                 <button type="button" id="Religion" class="button1">Religious and Faith Based</button>
+                 <br><button type="twelve" id="twelve" class="button1">12-Step Programs</button>
+                 <button type="button" id="Out" class="button1">Outpatient Services</button>
+                 <br> <button type="button" id="all" class="button2">All Recovery Providers</button>
+                 </div>
+                 </div>
+            <div id="map4"></div>
+        
+         <div id='map5container'>
+            <p>*<em>The tools above have been created for the purposes of this final project and should not be considered an exhausted list of providers or used for purposes beyond this course.  If you are interested in learning more about the Advancing Substance Use Recovery Project in Iowa, please reach out to the project's Principle Investigator Dr. Shawn Dorius.</em></p>
+            <br>
+            <br>
+            <h5><b>References:</b></h5>
+             Center for Disease Control (2020, March.) <em>Understanding the epidemic.</em> Retreived from: <a href="https://www.cdc.gov/drugoverdose/epidemic/index.html">https://www.cdc.gov/drugoverdose/epidemic/index.html</a>
+            <br>Dorius, C., Dorius, S., Rouse, H.L., Richey, E., Talbert, E., Van Selous, K., and Bahe, D. (2020, January). <em>Translating Research into Action: A Multi-method Approach for Informing Substance Use Policy and Practice.</em> Report prepared for the Iowa Department of Public Health.
+            <br>Governor’s Office of Drug Control Policy. (2019) <em>Iowa Drug Control Strategy.</em> Retrieved from: <a href="https://odcp.iowa.gov/sites/default/files/documents/2018/11/2019strategyfinal.pdf">https://odcp.iowa.gov/sites/default/files/documents/2018/11/2019strategyfinal.pdf</a>
+             <br>Iowa Department of Public Health State Epidemiological Workgroup. (2016). <em>State of Iowa Substance Use Epidemiological Profile 2016.</em> Retrieved from <a href="https://idph.iowa.gov/Portals/1/userfiles/137/2016 Epi Profile.pdf">https://idph.iowa.gov/Portals/1/userfiles/137/2016 Epi Profile.pdf</a>
+            <br>National Insitutue on Drug Abuse (2020, February). <em>Trends and Statistics.</em>  Retreived From: <a href="https://www.drugabuse.gov/related-topics/trends-statistics">https://www.drugabuse.gov/related-topics/trends-statistics</a>
+            <br>Substance Abuse and Mental Health Services Administration. (2018). <em>2016-2017 National Survey on Drug Use and Health National Maps of Prevalence Estimates, by State.</em> Retrieved from: <a href="https://www.samhsa.gov/data/sites/default/files/cbhsq-reports/NSDUHsaeMaps2017/NSDUHsaeMaps2017.pdf">https://www.samhsa.gov/data/sites/default/files/cbhsq-reports/NSDUHsaeMaps2017/NSDUHsaeMaps2017.pdf</a>
+            <br>United States Department of Health and Human Services (2019, September 4th).  <em>What is The 	U.S. Opioid Epidemic?</em>  Retrieved from:  <a href="https://www.hhs.gov/opioids/about-the-epidemic/index.html">https://www.hhs.gov/opioids/about-the-epidemic/index.html</a>
+            </div>
+       
+        <script>
 
+            //map  2   
+            var OSM2 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 18
+                });	
+            
+            var map2 = L.map('map2', {
+                center: [42,-93],
+                zoom: 7,
+                layers: [OSM2]
+		          });
+            
+            //map 2 coloring & style functions 
+            function getColor2a(d) {
+		      return d  > 200  ? '#4A235A' :
+                     d  > 150  ? '#6C3483' :
+				     d  > 100  ? '#7D3C98' :
+				     d  > 50   ? '#A569BD' :
+				     d  >25   ? '#BB8FCE' :
+                     d  >10   ? '#E8DAEF' :
+                     "#F9EBEA"; 
+                     }
+             
+            function style2a(feature) {
+                return {
+                    weight: 1,
+                    opacity: 1,
+                    color: 'white',
+                    fillOpacity: 0.7,
+			        fillColor: getColor2a(feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths)
+		            };
+	               }    
+            
+            function getColor2b(d) {
+		      return d  > 25  ? '#1B4F72' :
+                     d  > 20  ? '#2874A6' :
+				     d  > 15  ? '#2980B9' :
+				     d  > 10   ? '#7FB3D5' :
+				     d  >5   ? '#D4E6F1' :
+                     d  >0   ? '#EAF2F8' :
+                     "#F9EBEA"; 
+                     }
+             
+            function style2b(feature) {
+                return {
+                    weight: 1,
+                    opacity: 1,
+                    color: 'white',
+                    fillOpacity: 0.7,
+			        fillColor: getColor2b(feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty)
+		            };
+	               }   
+            
+            //map 2 highlighting & pop up functions
+            function highlightFeature2a(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 4,
+                    color: 'grey',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                        }
+                        }
 
-<body onload="entryPoint()">
-	
-	<h1>Two choropleth Maps with 2D Histogram Contour Plot</h1>
-	
-	<div id="mapContainer">
-		<div id="map1" class="mapArea">
-			<div class="trace"></div>
-			<div class="map"></div>
-		</div>
-		<div id="map2" class="mapArea">
-			<div class="trace"></div>
-			<div class="map"></div>
-		</div>
-		<div id="chart" class="mapArea">
-			<div class="chart"></div>
-		</div>
-	</div>
+            function resetHighlight2a(e) {
+                IMort.resetStyle(e.target);
+                }
 
+            function onEachFeature2a(feature, layer) {
+                layer.on({
+                mouseover: highlightFeature2a,
+                mouseout: resetHighlight2a
+                });
+            if (feature.properties) {
+                layer.bindPopup("<b>County: </b>" + feature.properties.COUNTY + "<br><b>Number of Substance Induced Deaths: </b>" + feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths);
+                }
+                }
+            
+            function highlightFeature2b(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 4,
+                    color: 'grey',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                        }
+                        }
+            
+            function resetHighlight2b(e) {
+                IPov.resetStyle(e.target);
+                }
+            
+            function onEachFeature2b(feature, layer) {
+                layer.on({
+                mouseover: highlightFeature2b,
+                mouseout: resetHighlight2b
+                });
+            if (feature.properties) {
+                layer.bindPopup("<b>County: </b>" + feature.properties.COUNTY + "<br><b>Percent Below Poverty: </b>" + feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty);
+                }
+                }
+            
+            //map 2 data          
+            var IMort = L.geoJson(IMort, {
+                style: style2a,
+                onEachFeature: onEachFeature2a
+                }).addTo(map2);  
+            
+            var IPov = L.geoJson(IPov, {
+                style: style2b,
+                onEachFeature: onEachFeature2b
+                })  
+            
+            //map 2 legends
+            var legend2a = L.control({
+                position: 'bottomleft'
+                });
 
-<script type="text/javascript">
+            legend2a.onAdd = function(map2) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                IMort = [10, 25, 50, 100, 150, 200],
+                labels = [];
+                div.innerHTML += "<b>Substance Induced Deaths</b><br>1999-2018<br>";
+                for (var i = 0; i < IMort.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor2a(IMort[i] + 1) + '"></i> ' +
+                        IMort[i] + (IMort[i + 1] ? '&ndash;' + IMort[i + 1] + '<br>' : '+');
+                        }
+                return div;
+                };
+                legend2a.addTo(map2);
+     
+            var legend2b = L.control({
+                position: 'bottomleft'
+                });
 
-// define global variables
-var TRACE1 = "% IowaSubstanceInducedDeaths1999_2018_Crude Rate";
-var TRACE2 = "% IowaSubstanceInducedDeaths1999_2018_Population";
-var NUMBER_OF_CLASS = 8;                                      // range: 5 ~ 9
-var CLASSIFICATION_METHOD = "Quantile"                        // Equal, Quantile or Jenks
-var COLOR_HUE = "Yellow_to_Red";                              // Red, Green or Blue
-var NO_DATA = -9999;
-var COLOR_CLASS = {
-	"Red_5"     : ["#fee5d9", "#fcae91", "#fb6a4a", "#de2d26", "#a50f15"],
-	"Red_6"     : ["#fee5d9", "#fcbba1", "#fc9272", "#fb6a4a", "#de2d26", "#a50f15"],
-	"Red_7"     : ["#fee5d9", "#fcbba1", "#fc9272", "#fb6a4a", "#ef3b2c", "#cb181d", "#99000d"],
-	"Red_8"     : ["#fff5f0", "#fee0d2", "#fcbba1", "#fc9272", "#fb6a4a", "#ef3b2c", "#cb181d", "#99000d"],
-	"Red_9"     : ["#fff5f0", "#fee0d2", "#fcbba1", "#fc9272", "#fb6a4a", "#ef3b2c", "#cb181d", "#a50f15", "#67000d"],
-	"Green_5"   : ["#edf8e9", "#bae4b3", "#74c476", "#31a354", "#006d2c"],
-	"Green_6"   : ["#edf8e9", "#c7e9c0", "#a1d99b", "#74c476", "#31a354", "#006d2c"],
-	"Green_7"   : ["#edf8e9", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#005a32"],
-	"Green_8"   : ["#f7fcf5", "#e5f5e0", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#005a32"],
-	"Green_9"   : ["#f7fcf5", "#e5f5e0", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#006d2c", "#00441b"],	
-	"Blue_5"    : ["#eff3ff", "#bdd7e7", "#6baed6", "#3182bd", "#08519c"],
-	"Blue_6"    : ["#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#08519c"],
-	"Blue_7"    : ["#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#2171b5"],
-	"Blue_8"    : ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#084594"],
-	"Blue_9"    : ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"],
-	//multi-hue
-	"Yellow_to_Red_5" : ["#ffffb2", "#fecc5c", "#fd8d3c", "#f03b20", "#bd0026"],
-	"Yellow_to_Red_6" : ["#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#f03b20", "#bd0026"],
-	"Yellow_to_Red_7" : ["#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"],
-	"Yellow_to_Red_8" : ["#ffffcc" ,"#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"],
-   	"Yellow_to_Red_9" : ["#ffffcc" ,"#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"]	
-};
-// changeable global variables
-var app = {
-	"assembledGeoJSON": null,                                        // GeoJSON format with properties and geometry data
-	"map1": {
-		"map": null,                                                 // leaflet object of map
-		"intervals": null,                                           // intervals by classification
-		"colors": null,                                              // color hue
-		"info": null,                                                // leaflet object of info
-		"legend": null,                                              // leaflet object of legend
-	},
-	"map2": {
-		"map": null,                                                 // leaflet object of map
-		"intervals": null,                                           // intervals by classification
-		"colors": null,                                              // color hue
-		"info": null,                                                // leaflet object of info
-		"legend": null,                                              // leaflet object of legend
-	},
-}
-// end of global variables
+            legend2b.onAdd = function(map2) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                IPov = [0, 5, 10, 15, 20, 25],
+                labels = [];
+                div.innerHTML += "<b>Percent Below Poverty</b><br>2013-2018<br>";
+                for (var i = 0; i < IPov.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor2b(IPov[i] + 1) + '"></i> ' +
+                        IPov[i] + (IPov[i + 1] ? '&ndash;' + IPov[i + 1] + '<br>' : '+');
+                        }
+                return div;
+                };
+             
+  
+            //map 2 layer control
+		    var baseMap = {
+		      "OpenStreetMap": OSM2
+                };
+       		
+		    var overlayMaps = {
+		      "Substance Induced Deaths from 1999-2018": IMort,
+              "Precent Living Below Poverty Rate": IPov
+		      };			
 
+            L.control.layers(baseMap, overlayMaps).addTo(map2);	
+            
+            //legend filtering
+            map2.on('overlayremove', function (eventLayer) {
+                console.log(eventLayer.name  + "off");
+                if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
+                this.removeControl(legend2a);
+                }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
+                this.removeControl(legend2b);
+	            }
+                });
 
+            map2.on('overlayadd', function (eventLayer) {
+	          console.log(eventLayer.name + "on");
+	           if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
+               legend2a.addTo(this);
+               }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
+		       legend2b.addTo(this);
+               }	
+               });
+             
+            //map 4  
+            var OSM4 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 18
+                });	
+            
+            var map4 = L.map('map4', {
+                center: [42,-93],
+                zoom: 7,
+                layers: [OSM4]
+		          });
+   
+            //awesome marker for phone icon 
+            var phoneMarker = L.AwesomeMarkers.icon({
+                icon: 'phone',
+                prefix: 'fa',
+                markerColor: 'blue'
+                });      
+             
+            //map 4 data that starts on the data 
+            var all = L.geoJSON(SIRP, {
+                pointToLayer: function(feature, latlng) {
+                return L.marker(latlng, {
+                icon: phoneMarker})
+                },
+                onEachFeature: function (feature, layer) {
+                    popupOptions = {maxWidth: 200}; 
+                    if (feature.properties.URL == "NA"){ 
+                    layer.bindPopup("<b>Site name: </b>" + feature.properties.Name +  
+                                    "<br><b>Phone Number: </b>" + feature.properties.Phone +                  
+                                    "<br><b>Link:</b> No URL available",popupOptions);}
+                    else{layer.bindPopup("<b>Site name: </b>" + feature.properties.Name + 
+                                         "<br><b>Phone Number: </b>" + feature.properties.Phone +                  
+                                         "<br><b>Link: </b>" + '<a href="'+feature.properties.URL+'">'+feature.properties.URL+'</a>'                   
+                    ,popupOptions);   }
+                    }}
+                    )
+                    .addTo(map4);
+            
+            //map 4 pop up function
+            function popupProvider(feature, layer) {
+                popupOptions = {maxWidth: 200}; 
+                    if (feature.properties.URL == "NA"){ 
+                    layer.bindPopup("<b>Site name: </b>" + feature.properties.Name +  
+                                    "<br><b>Phone Number: </b>" + feature.properties.Phone +                  
+                                    "<br><b>Link:</b> No URL available",popupOptions);}
+                    else{layer.bindPopup("<b>Site name: </b>" + feature.properties.Name + 
+                                         "<br><b>Phone Number: </b>" + feature.properties.Phone +                  
+                                         "<br><b>Link: </b>" + '<a href="'+feature.properties.URL+'">'+feature.properties.URL+'</a>'                   
+                    ,popupOptions);   }
+                    }
+            
+            //map 4 data for buttons 
+            var housing = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.ServiceTyp == 'RecoveryHousing') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+             var twelve = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.twelve_Step == 'Yes') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            var Out = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Outpatient == 'Yes') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            var Religion = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.ReligiousB == 'Yes') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            var women = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Gender == 'Women') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            var men = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Gender == 'Men') {
+                    return true;
+                    }
+                    },
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+                
+            var family = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Gender == 'Family') {
+                    return true;
+                    }
+                    },
+                 pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+                
+            var veteran = L.geoJSON(SIRP, {
+                onEachFeature: popupProvider,
+                filter: function(feature, layer) {
+                    if (feature.properties.Gender == 'Veterans') {
+                    return true;
+                    }
+                    },
+                 pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng, {icon: phoneMarker});
+                    },
+                    })
+            
+            //Map4 legends
+                var legend4a = L.control({
+                position: 'bottomleft'
+                });
+        
+            legend4a.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br>";
+                return div;
+                };
+                legend4a.addTo(map4);
+            
+               var legend4b = L.control({
+                position: 'bottomleft'
+                });
 
-/**
- * entry point of this javascript
- * it's defined by <body> tag like this: <body onload="entryPoint()">
- */
-function entryPoint() {
-	
-	app.assembledGeoJSON = assembleGeoJSON(GEO_JSON);
-	
-	var map = "map1";
-	app[map] = {};
-	var mapN = app[map];
-	
-	mapN.map = draw_baseMap(map, GEO_JSON[0], TRACE1);
-	var e = document.getElementById(map).getElementsByClassName("traceSelect")[0];
-	var trace = e.options[e.selectedIndex].value;
-	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
-	mapN.colors = COLOR_CLASS[COLOR_HUE + "_" + NUMBER_OF_CLASS]
-	draw_choroplethMap(mapN, trace);
-	
-	var map = "map2";
-	app[map] = {};
-	var mapN = app[map];
-	
-	mapN.map = draw_baseMap(map, GEO_JSON[0], TRACE2);
-	var e = document.getElementById(map).getElementsByClassName("traceSelect")[0];
-	var trace = e.options[e.selectedIndex].value;
-	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
-	mapN.colors = COLOR_CLASS[COLOR_HUE + "_" + NUMBER_OF_CLASS]
-	draw_choroplethMap(mapN, trace);
-	
-	draw_2dDensityPlots();
-}
+            legend4b.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>With Housing</b>";
+                return div;
+                };
+          
+            
+             var legend4c = L.control({
+                position: 'bottomleft'
+                });
 
+            legend4c.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>For Women</b>";
+                return div;
+                };
+       
+            
+             var legend4d = L.control({
+                position: 'bottomleft'
+                });
 
-/**
- * join geoJSON and geoVariables by geoid and assemble GeoJSON and return it
- * geoJSON: GeoJSON format with properties of geoid and geometry data
- * geoVariables: CSV format first column of each row must be geoid
- */
-function assembleGeoJSON(geoVariables,geoJSON) {
-	
-	var geoFeatures = {}                                             // key: geoid,  value: {geometry, properties}
-	geoJSON.features.forEach(function(row, i) {
-		geoFeatures[row.properties.geoid] = {"geometry": row.geometry, "properties": row.properties}
-	});
-	
-	var title = geoJSON[0];                                     // save 1st row to a title
-	var resultGeoJSON = {"type":"FeatureCollection", "features":[]}
-	geoVariables.forEach(function(row, i) {
-		if (i == 0) return;                                          // skip the title's row
-		var geoid = row[0];
-		if (!geoFeatures.hasOwnProperty(COUNTY)) return;              // skip if no geometry data in the geoJSON
-		var geoFeature = geoFeatures[COUNTY];
-		var feature = {"type": "Feature", "geometry": geoFeature.geometry, "properties": geoFeature.properties};
-		for (var c=1; c<title.length; c++) 
-			feature.properties[title[c]] = row[c];
-		resultGeoJSON.features.push(feature);
-	});
-	
-	return resultGeoJSON;
-}
+            legend4d.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>For Men</b>";
+                return div;
+                };
+      
+            
+             var legend4e = L.control({
+                position: 'bottomleft'
+                });
 
+            legend4e.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>For Families</b>";
+                return div;
+                };
+    
+            
+             var legend4f = L.control({
+                position: 'bottomleft'
+                });
 
-/**
- * get intervals from classification
- * method : "Equal", "Quantile" or "Jenks"
- * nClass : number of class for classification.
- * item   : selected variable == TRACE.
- */
-function classification(method, nClass, item) {
-	
-	var values = [];
-	app.assembledGeoJSON.features.forEach(function(feature, i) {                  // skip if NO_DATA
-		if (feature.properties[item] != NO_DATA) values.push(feature.properties[item]);
-	});
-	
-	var serie = new geostats();
-	serie.setSerie(values);
-	var intervals = [];
-	if (method == 'Equal')      intervals = serie.getClassEqInterval(nClass);
-	if (method == 'Quantile')   intervals = serie.getClassQuantile(nClass);
-	if (method == 'Jenks')      intervals = serie.getClassJenks(nClass);
-	
-	return intervals;
-}
+            legend4f.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>For Veterans</b>";
+                return div;
+                };
 
+            
+             var legend4g = L.control({
+                position: 'bottomleft'
+                });
 
-/**
- * draw a base map
- * mDIV: id of <div> tag where to draw the map
- * variables: GEO_VARIABLES[0]  =>  title of CSV (1st column must be geoid)
- * return leaflet object of map
- */
-function draw_baseMap(mDIV, variables, trace) {
+            legend4g.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>With Outpatient Services</b>";
+                return div;
+                };
+            
+            var legend4h = L.control({
+                position: 'bottomleft'
+                });
 
-	var traceDiv = document.getElementById(mDIV).getElementsByClassName("trace")[0];
-	var html_trace = 'Trace: <select id="traceSelect" class="traceSelect" onChange="trace_selected(\''+mDIV+'\')">';
-	//html_trace += '<option value="' + TRACE1 + '" class="line_none">' + TRACE1 + '</option>';
-	//html_trace += '<option value="' + TRACE2 + '" class="line_none">' + TRACE2 + '</option>';
-	for (var i=1; i<variables.length; i++) {
-		if (variables[i] == trace)
-			html_trace += '<option value="' + variables[i] + '" class="line_none" selected>' + variables[i] + '</option>';
-		else
-			html_trace += '<option value="' + variables[i] + '" class="line_none">' + variables[i] + '</option>';
-	}
-	html_trace += '</select>';
-	traceDiv.innerHTML = html_trace;
-	
-	var mapDiv = document.getElementById(mDIV).getElementsByClassName("map")[0];
-	var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-		mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+            legend4h.onAdd = function(map4) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                all = [],
+                labels = [];
+                div.innerHTML += "<b>Iowa Substance Use Recovery Providers</b><br><b>With Religious and Faith Based Programming</b>";
+                return div;
+                };
+            
+            //map 4 filtering
+             $("#all").click(function() {
+                map4.addLayer(all);
+                map4.addControl(legend4a);
+                map4.removeLayer(women);
+                map4.removeLayer(men);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#women").click(function() {
+                map4.addLayer(women);
+                map4.addControl(legend4c);
+                map4.removeLayer(all);
+                map4.removeLayer(men);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
 
-	var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}),
-		streets  = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
-	
-	var mapCenter = [37.09024, -95.712891];
-	var mapZoomLevel = 4;
-	var map = L.map(mapDiv, {
-		center: mapCenter,
-		zoom: mapZoomLevel,
-		layers: [grayscale]
-	});
-	
-	map.scrollWheelZoom.disable();
-	
-	return map;	
-}
+            $("#men").click(function() {
+                map4.addLayer(men);
+                map4.addControl(legend4d);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
 
+            $("#family").click(function() {
+                map4.addLayer(family);
+                map4.addControl(legend4e);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(men);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+                
+            $("#veteran").click(function() {
+                map4.addLayer(veteran);
+                map4.addControl(legend4f);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(men);
+                map4.removeLayer(housing);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#housing").click(function() {
+                map4.addLayer(housing);
+                map4.addControl(legend4b);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(men);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#twelve").click(function() {
+                map4.addLayer(twelve);
+                map4.addControl(legend4e);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(men);
+                map4.removeLayer(Out);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#Out").click(function() {
+                map4.addLayer(Out);
+                map4.addControl(legend4g);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(men);
+                map4.removeLayer(twelve);
+                map4.removeLayer(Religion);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4h);
+                });
+            
+            $("#Religion").click(function() {
+                map4.addLayer(Religion);
+                map4.addControl(legend4h);
+                map4.removeLayer(all);
+                map4.removeLayer(women);
+                map4.removeLayer(family);
+                map4.removeLayer(veteran);
+                map4.removeLayer(housing);
+                map4.removeLayer(men);
+                map4.removeLayer(Out);
+                map4.removeLayer(twelve);
+                map4.removeControl(legend4a);
+                map4.removeControl(legend4b);
+                map4.removeControl(legend4c);
+                map4.removeControl(legend4d);
+                map4.removeControl(legend4e);
+                map4.removeControl(legend4f);
+                map4.removeControl(legend4g);
+                });
 
-/**
- * this function inboked by trace select in the drop-down list
- * mDIV: id of <div> tag where to draw the map
- * update mapN.intervals by selected trace
- * call the draw_choroplethMap function
- * call the draw_2dDensityPlots function
- */
-function trace_selected(mDIV) {
-	
-	var mapN = app[mDIV];
-	
-	var e = document.getElementById(mDIV).getElementsByClassName("traceSelect")[0];
-	var trace = e.options[e.selectedIndex].value;
-	mapN.intervals = classification(CLASSIFICATION_METHOD, NUMBER_OF_CLASS, trace)
-	draw_choroplethMap(mapN, trace);
-	
-	draw_2dDensityPlots();
-}
-
-
-/**
- * draw a choropleth map
- * mapN: app.map1 or app.map2
- * item: selected trace  
- */
-function draw_choroplethMap(mapN, item) {
-	
-	// control that shows state info on hover
-	if (mapN.hasOwnProperty("info") && mapN.info != null) mapN.info.remove();
-	mapN.info = L.control();
-	mapN.info.onAdd = function(map) {
-		this._div = L.DomUtil.create('div', 'info');
-		this.update();
-		return this._div;
-	};
-	mapN.info.update = function (props) {
-		this._div.innerHTML = '<h4>' + item + '</h4>' +  (props ?
-			props.geoid + ' :&nbsp; &nbsp;' + ((props[item] == NO_DATA) ? "no data" : '<b>' + props[item] + '</b>')
-			: 'Hover over an area');
-	};
-	mapN.info.addTo(mapN.map);
-	
-	// get getOpacity
-	function getOpacity(feature) {
-		return 0.9;
-	}
-	
-	// get color depending on selected variable's value
-	function getColor(d) {
-		if (d == NO_DATA) {
-			return "#5E5E5E";
-		}
-		for (var i=mapN.colors.length-1; i>=0; i--) {
-			if (d >= mapN.intervals[i]) {
-				return mapN.colors[i];
-			}
-		}
-	}
-	
-	function style(feature) {
-		return {
-			weight: 0.3,
-			opacity: 1,
-			color: 'white',
-			dashArray: '1',
-			fillOpacity: getOpacity(feature),
-			fillColor: getColor(feature.properties[item])
-		};
-	}
-	
-	function highlightFeature(e) {
-		var layer = e.target;
-		layer.setStyle({
-			weight: 3,
-			color: '#00ffff',
-			dashArray: '',
-			fillOpacity: 0.9
-		});
-		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-			layer.bringToFront();
-		}
-		mapN.info.update(layer.feature.properties);
-	}
-	
-	function resetHighlight(e) {
-		geojson.resetStyle(e.target);
-		mapN.info.update();
-	}
-
-	function zoomToFeature(e) {
-		mapN.map.fitBounds(e.target.getBounds());
-	}
-	
-	function onEachFeature(feature, layer) {
-		layer.on({
-			mouseover: highlightFeature,
-			mouseout: resetHighlight,
-			click: zoomToFeature
-		});
-	}
-	
-	var geojson = L.geoJson(app.assembledGeoJSON, {
-		style: style,
-		onEachFeature: onEachFeature
-	}).addTo(mapN.map);
-	
-	mapN.map.fitBounds(geojson.getBounds());                              // fit bounds from geojson object
-	
-	if (mapN.hasOwnProperty("legend") && mapN.legend != null) mapN.legend.remove();
-	mapN.legend = L.control({position: 'bottomright'});
-	mapN.legend.onAdd = function (map) {
-		var div = L.DomUtil.create('div', 'info legend');
-		var labels = [];
-		for (var i=0; i<mapN.colors.length; i++)
-			labels.push('<i style="background:' + mapN.colors[i] + '"></i>&nbsp; &nbsp;' + mapN.intervals[i].toFixed(2));
-		labels.push('<i style="background:' + getColor(NO_DATA) + '"></i>&nbsp; ' + 'no data'+ '<br>');
-		div.innerHTML = labels.join('<br>');
-		return div;
-	};
-	mapN.legend.addTo(mapN.map);
-}
-
-</script>
-
-</body>
+           </script>
+      </body>
 </html>
