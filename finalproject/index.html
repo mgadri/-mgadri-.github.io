@@ -387,9 +387,9 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng);
+                    return L.marker(latlng)
                     },
-                    })
+                 
             
              var twelve = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
