@@ -388,11 +388,12 @@
                     if (feature.properties.ServiceTyp == 'RecoveryHousing') {
                     return true;
                     }
+		     return false;
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: L.marker});
+                    return L.marker(latlng);
                     },
-                    })
+                    });
             
              var twelve = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -400,11 +401,12 @@
                     if (feature.properties.twelve_Step == 'Yes') {
                     return true;
                     }
+		     return false;
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: L.marker});
+                    return L.marker(latlng);
                     },
-                    })
+                    });
             
             var Out = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -412,11 +414,12 @@
                     if (feature.properties.Outpatient == 'Yes') {
                     return true;
                     }
+		     return false;
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: Marker});
+                    return L.marker(latlng);
                     },
-                    })
+                    });
             
             var Religion = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -424,11 +427,12 @@
                     if (feature.properties.ReligiousB == 'Yes') {
                     return true;
                     }
+		     return false;
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: Marker});
+                    return L.marker(latlng);
                     },
-                    })
+                    });
             
             var women = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -436,11 +440,12 @@
                     if (feature.properties.Gender == 'Women') {
                     return true;
                     }
+		     return false;
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: Marker});
+                    return L.marker(latlng);
                     },
-                    })
+                    });
             
             var men = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -448,35 +453,38 @@
                     if (feature.properties.Gender == 'Men') {
                     return true;
                     }
+		     return false;
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: Marker});
+                    return L.marker(latlng);
                     },
-                    })
+                    });
                 
             var family = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
                 filter: function(feature, layer) {
                     if (feature.properties.Gender == 'Family') {
-                    return true;
+                   return true;
                     }
+		     return false;
                     },
-                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: Marker});
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng);
                     },
-                    })
+                    });
                 
             var veteran = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
                 filter: function(feature, layer) {
                     if (feature.properties.Gender == 'Veterans') {
-                    return true;
+                   return true;
                     }
+		     return false;
                     },
-                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: Marker});
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng);
                     },
-                    })
+                    });
 	    
             //Map4 legends
                 var legend4a = L.control({
