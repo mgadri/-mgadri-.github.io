@@ -359,19 +359,11 @@
                 zoom: 7,
                 layers: [OSM4]
 		          });
-   
-            //awesome marker for phone icon 
-            var phoneMarker = L.AwesomeMarkers.icon({
-                icon: 'coffee',
-                markerColor: 'red'
-                });   
-	    L.marker([42,-93], {icon: phoneMarker}).addTo(map);
-             
+
             //map 4 data that starts on the data 
             var all = L.geoJSON(SIRP, {
                 pointToLayer: function(feature, latlng) {
-                return L.marker(latlng, {
-                icon: phoneMarker})
+                return L.marker(latlng)
                 },
                 onEachFeature: function (feature, layer) {
                     popupOptions = {maxWidth: 200}; 
