@@ -31,8 +31,10 @@
             <script src="PlugIn/awesomemarkers/dist/leaflet.awesome-markers.js"></script>
 
             <!--geoJSON files-->  
-	    <script src="../data/IRP200430.geojson"></script>
-	    <script src="../data/IowaData200503pov.geojson"></script>
+	    <script src="../data/IowaData.geojson"></script>
+	    <script src="../data/SubstanceProviders.geojson"></script>
+	    <script src="../data/IowaDataCopy.geojson"></script>
+	    <script src="../data/SubstanceProvidersCopy.geojson"></script>
   
                 <style>    
          
@@ -262,7 +264,7 @@
                 }
             
             //map 2 data          
-            var IPov = L.geoJson(IMort, {
+            var IMort = L.geoJson(IMort, {
                 style: style2a,
                 onEachFeature: onEachFeature2a
                 }).addTo(map2);  
