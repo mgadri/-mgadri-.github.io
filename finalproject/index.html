@@ -390,9 +390,9 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {});
+                    return L.marker(latlng)
                     },
-                    })
+       
             
              var twelve = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -402,9 +402,8 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: phoneMarker});
+                    return L.marker(latlng)
                     },
-                    })
             
             var Out = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -414,9 +413,8 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: phoneMarker});
+                    return L.marker(latlng)
                     },
-                    })
             
             var Religion = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -426,9 +424,8 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: phoneMarker});
+                    return L.marker(latlng)
                     },
-                    })
             
             var women = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
@@ -438,10 +435,9 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: phoneMarker});
+                    return L.marker(latlng)
                     },
-                    })
-            
+      
             var men = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
                 filter: function(feature, layer) {
@@ -450,10 +446,9 @@
                     }
                     },
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: phoneMarker});
+                    return L.marker(latlng)
                     },
-                    })
-                
+     
             var family = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
                 filter: function(feature, layer) {
@@ -462,10 +457,9 @@
                     }
                     },
                  pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: phoneMarker});
+                    return L.marker(latlng)
                     },
-                    })
-                
+             
             var veteran = L.geoJSON(SIRP, {
                 onEachFeature: popupProvider,
                 filter: function(feature, layer) {
@@ -474,10 +468,9 @@
                     }
                     },
                  pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: phoneMarker});
+                    return L.marker(latlng)
                     },
-                    })
-            
+           
             //Map4 legends
                 var legend4a = L.control({
                 position: 'bottomleft'
