@@ -348,7 +348,7 @@
                });
 		
 		
-                //map 4  
+      //map 4  
             var OSM4 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
                 maxZoom: 18
@@ -368,7 +368,7 @@
                 });      
              
             //map 4 data that starts on the data 
-            var SIRP = L.geoJSON(SIRP, {
+            var all = L.geoJSON(SIRP, {
                 pointToLayer: function(feature, latlng) {
                 return L.marker(latlng, {
                 icon: phoneMarker})
@@ -780,7 +780,7 @@
                 map4.removeControl(legend4f);
                 map4.removeControl(legend4g);
                 });
-
+		
            </script>
       </body>
 </html>
