@@ -112,7 +112,7 @@
             <p>The map shows substance-induced mortalities from 1999-2018 from the Center for Disease Control. It also captured Census Bureau 5-year estimates of the percent of each county living below the poverty level in the past 12 months.</p>  
             <p>Click on each county to observe the number of substance-induced deaths. Also, toggle the menu to see the percentage in each county living below poverty.</p>  
 		</div>
-	     <div id="map1">
+	     <div id="map1"></div>
      
          <div id='map2container'>
             <h2>Provider Filters</h2>
@@ -129,7 +129,7 @@
                  <br> <button type="button" id="all" class="button2">All Recovery Providers</button>
                  </div>
                  </div>
-            <div id="map2"></div>
+           <div id="map2"></div>
         
          <div id='map3container'>
             <p><em>The tools above have been created for the purposes of this final project and should not be considered an exhausted list of providers or used for purposes beyond this course.</em></p>
@@ -332,7 +332,7 @@
                 center: [42,-93],
                 zoom: 7,
                 layers: [OSM2]
-		          });
+		   });
    
             //adding data
             var all = L.geoJSON(SIRP, {
