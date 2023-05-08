@@ -262,7 +262,7 @@
                 }
             
             //map 2 data          
-            var IMort = L.geoJson(IMort, {
+            var IPov = L.geoJson(IMort, {
                 style: style2a,
                 onEachFeature: onEachFeature2a
                 }).addTo(map2);  
@@ -339,8 +339,9 @@
 		       legend2b.addTo(this);
                }	
                });
-             
-            //map 4  
+		
+		
+                //map 4  
             var OSM4 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
                 maxZoom: 18
