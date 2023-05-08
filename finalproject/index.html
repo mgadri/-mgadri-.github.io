@@ -5,18 +5,24 @@
       <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
       <title>Final Project</title>   
             <!-- Load Leaflet from CDN -->
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-                integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-                crossorigin=""/>
-            <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-                integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-                crossorigin=""></script>
+            <<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+	    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+	    crossorigin=""/>
+	    
+            <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+		    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+		    crossorigin=""></script>
 
             <!-- Load Esri Leaflet from CDN -->
             <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"
                 integrity="sha512-kq0i5Xvdq0ii3v+eRLDpa++uaYPlTuFaOYrfQ0Zdjmms/laOwIvLMAxh7cj1eTqqGG47ssAcTY4hjkWydGt6Eg=="
                 crossorigin=""></script>  
-	   
+	 
+            <!--Marker Cluster-->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+            <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+            <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>        
+            
             <!--Boot Strap-->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -25,10 +31,9 @@
             <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
         
             <!--AwesomeMarker-->
-            <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
-	        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
-            <link rel="stylesheet" href="PlugIn/awesomemarkers/dist/leaflet.awesome-markers.css" />
-            <script src="PlugIn/awesomemarkers/dist/leaflet.awesome-markers.js"></script>
+            <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+	    <link rel="stylesheet" href="css/leaflet.awesome-markers.css">
+            <script src="js/leaflet.awesome-markers.js"></script>
 
             <!--geoJSON files-->  
 	    <script src="https://mgadri.github.io/finalproject/data/IowaData.geojson"></script>
@@ -154,6 +159,194 @@
        
         <script>
 	
+	
+	//map  2   
+            var OSM2 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 18
+                });	
+            
+            var map2 = L.map('map2', {
+                center: [42,-93],
+                zoom: 7,
+                layers: [OSM2]
+		          });
+            
+            //map 2 coloring & style functions 
+            function getColor2a(d) {
+		      return d  > 200  ? '#4A235A' :
+                     d  > 150  ? '#6C3483' :
+				     d  > 100  ? '#7D3C98' :
+				     d  > 50   ? '#A569BD' :
+				     d  >25   ? '#BB8FCE' :
+                     d  >10   ? '#E8DAEF' :
+                     "#F9EBEA"; 
+                     }
+             
+            function style2a(feature) {
+                return {
+                    weight: 1,
+                    opacity: 1,
+                    color: 'white',
+                    fillOpacity: 0.7,
+			        fillColor: getColor2a(feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths)
+		            };
+	               }    
+            
+            function getColor2b(d) {
+		      return d  > 25  ? '#1B4F72' :
+                     d  > 20  ? '#2874A6' :
+				     d  > 15  ? '#2980B9' :
+				     d  > 10   ? '#7FB3D5' :
+				     d  >5   ? '#D4E6F1' :
+                     d  >0   ? '#EAF2F8' :
+                     "#F9EBEA"; 
+                     }
+             
+            function style2b(feature) {
+                return {
+                    weight: 1,
+                    opacity: 1,
+                    color: 'white',
+                    fillOpacity: 0.7,
+			        fillColor: getColor2b(feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty)
+		            };
+	               }   
+            
+            //map 2 highlighting & pop up functions
+            function highlightFeature2a(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 4,
+                    color: 'grey',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                        }
+                        }
+
+            function resetHighlight2a(e) {
+                IMort.resetStyle(e.target);
+                }
+
+            function onEachFeature2a(feature, layer) {
+                layer.on({
+                mouseover: highlightFeature2a,
+                mouseout: resetHighlight2a
+                });
+            if (feature.properties) {
+                layer.bindPopup("<b>County: </b>" + feature.properties.COUNTY + "<br><b>Number of Substance Induced Deaths: </b>" + feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths);
+                }
+                }
+            
+            function highlightFeature2b(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 4,
+                    color: 'grey',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                        }
+                        }
+            
+            function resetHighlight2b(e) {
+                IPov.resetStyle(e.target);
+                }
+            
+            function onEachFeature2b(feature, layer) {
+                layer.on({
+                mouseover: highlightFeature2b,
+                mouseout: resetHighlight2b
+                });
+            if (feature.properties) {
+                layer.bindPopup("<b>County: </b>" + feature.properties.COUNTY + "<br><b>Percent Below Poverty: </b>" + feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty);
+                }
+                }
+            
+            //map 2 data          
+            var IMort = L.geoJson(IMort, {
+                style: style2a,
+                onEachFeature: onEachFeature2a
+                }).addTo(map2);  
+		
+            var IPov = L.geoJson(IPov, {
+                style: style2b,
+                onEachFeature: onEachFeature2b
+                })  
+            
+            //map 2 legends
+            var legend2a = L.control({
+                position: 'bottomleft'
+                });
+
+            legend2a.onAdd = function(map2) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                IMort = [10, 25, 50, 100, 150, 200],
+                labels = [];
+                div.innerHTML += "<b>Substance Induced Deaths</b><br>1999-2018<br>";
+                for (var i = 0; i < IMort.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor2a(IMort[i] + 1) + '"></i> ' +
+                        IMort[i] + (IMort[i + 1] ? '&ndash;' + IMort[i + 1] + '<br>' : '+');
+                        }
+                return div;
+                };
+                legend2a.addTo(map2);
+     
+            var legend2b = L.control({
+                position: 'bottomleft'
+                });
+
+            legend2b.onAdd = function(map2) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                IPov = [0, 5, 10, 15, 20, 25],
+                labels = [];
+                div.innerHTML += "<b>Percent Below Poverty</b><br>2013-2018<br>";
+                for (var i = 0; i < IPov.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor2b(IPov[i] + 1) + '"></i> ' +
+                        IPov[i] + (IPov[i + 1] ? '&ndash;' + IPov[i + 1] + '<br>' : '+');
+                        }
+                return div;
+                };
+             
+  
+            //map 2 layer control
+		    var baseMap = {
+		      "OpenStreetMap": OSM2
+                };
+       		
+		    var overlayMaps = {
+		      "Substance Induced Deaths from 1999-2018": IMort,
+              "Precent Living Below Poverty Rate": IPov
+		      };			
+
+            L.control.layers(baseMap, overlayMaps).addTo(map2);	
+            
+            //legend filtering
+            map2.on('overlayremove', function (eventLayer) {
+                console.log(eventLayer.name  + "off");
+                if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
+                this.removeControl(legend2a);
+                }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
+                this.removeControl(legend2b);
+	            }
+                });
+
+            map2.on('overlayadd', function (eventLayer) {
+	          console.log(eventLayer.name + "on");
+	           if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
+               legend2a.addTo(this);
+               }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
+		       legend2b.addTo(this);
+               }	
+               });	
+		
 		
       //map 4  
             var OSM4 = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -169,13 +362,13 @@
    
             //awesome marker for phone icon 
             var phoneMarker = L.AwesomeMarkers.icon({
-                icon: 'phone',
-                prefix: 'fa',
-                markerColor: 'blue'
-                });      
+                icon: 'coffee',
+                markerColor: 'red'
+                });   
+	    L.marker([42,-93], {icon: phoneMarker}).addTo(map);
              
             //map 4 data that starts on the data 
-            var SIRP = L.geoJSON(SIRP, {
+            var all = L.geoJSON(SIRP, {
                 pointToLayer: function(feature, latlng) {
                 return L.marker(latlng, {
                 icon: phoneMarker})
