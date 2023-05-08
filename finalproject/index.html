@@ -151,13 +151,13 @@
             //coloring & style functions 
             function getColor1a(d) {
 		      return d  > 200  ? '#4A235A' :
-                     d  > 150  ? '#6C3483' :
+                                     d  > 150  ? '#6C3483' :
 				     d  > 100  ? '#7D3C98' :
 				     d  > 50   ? '#A569BD' :
 				     d  >25   ? '#BB8FCE' :
-                     d  >10   ? '#E8DAEF' :
-                     "#F9EBEA"; 
-                     }  
+                                     d  >10   ? '#E8DAEF' :
+                                     "#F9EBEA"; 
+                                      }  
 		
             function style1a(feature) {
                 return {
@@ -165,28 +165,28 @@
                     opacity: 1,
                     color: 'white',
                     fillOpacity: 0.7,
-			        fillColor: getColor1a(feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths)
-		            };
-	               } 
+	            fillColor: getColor1a(feature.properties.IowaSubstanceInducedDeaths1999_2018_Deaths)
+		       };
+	              } 
 		
             function getColor1b(d) {
 		      return d  > 25  ? '#1B4F72' :
-                     d  > 20  ? '#2874A6' :
+                                     d  > 20  ? '#2874A6' :
 				     d  > 15  ? '#2980B9' :
 				     d  > 10   ? '#7FB3D5' :
 				     d  >5   ? '#D4E6F1' :
-                     d  >0   ? '#EAF2F8' :
-                     "#F9EBEA"; 
-                     }
+                                     d  >0   ? '#EAF2F8' :
+                                     "#F9EBEA"; 
+                                     }
             function style1b(feature) {
                 return {
                     weight: 1,
                     opacity: 1,
                     color: 'white',
                     fillOpacity: 0.7,
-			        fillColor: getColor1b(feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty)
-		            };
-	               }  
+		    fillColor: getColor1b(feature.properties.IowaPercentBelowPoverty2013_2018_Percent_BelowPoverty)
+		       };
+	              }  
 		
             // highlighting & pop up functions
             function highlightFeature1a(e) {
@@ -246,7 +246,7 @@
             //adding data          
             var IMort = L.geoJson(IMort, {
                 style: style1a,
-                onEachFeature: onEachFeature2a
+                onEachFeature: onEachFeature1a
                 }).addTo(map1);  
 		
             var IPov = L.geoJson(IPov, {
@@ -292,14 +292,14 @@
              
   
             //layer control
-		    var baseMap = {
-		      "OpenStreetMap": OSM1
+	      var baseMap = {
+		"OpenStreetMap": OSM1
                 };
        		
-		    var overlayMaps = {
-		      "Substance Induced Deaths from 1999-2018": IMort,
-              "Precent Living Below Poverty Rate": IPov
-		      };			
+	      var overlayMaps = {
+	       "Substance Induced Deaths from 1999-2018": IMort,
+               "Precent Living Below Poverty Rate": IPov
+		};			
 
             L.control.layers(baseMap, overlayMaps).addTo(map1);	
             
@@ -310,15 +310,15 @@
                 this.removeControl(legend1a);
                 }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
                 this.removeControl(legend1b);
-	            }
+	        }
                 });
 
             map1.on('overlayadd', function (eventLayer) {
 	          console.log(eventLayer.name + "on");
-	           if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
-               legend1a.addTo(this);
-               }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
-		       legend1b.addTo(this);
+	          if (eventLayer.name == "Substance Induced Deaths from 1999-2018") {
+                  legend1a.addTo(this);
+                  }else if (eventLayer.name == "Precent Living Below Poverty Rate"){
+		  legend1b.addTo(this);
                }	
                });
 		
