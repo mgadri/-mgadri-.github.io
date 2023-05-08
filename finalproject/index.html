@@ -368,7 +368,7 @@
                 });      
              
             //map 4 data that starts on the data 
-            var all = L.geoJSON(SIRP, {
+            var SIRP = L.geoJSON(SIRP, {
                 pointToLayer: function(feature, latlng) {
                 return L.marker(latlng, {
                 icon: phoneMarker})
